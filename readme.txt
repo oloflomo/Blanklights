@@ -1,1 +1,1 @@
-main game repo for unreal engine aux code
+main game repo for unreal engine project
