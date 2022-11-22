@@ -26,9 +26,10 @@ ABop::ABop()
 
 void ABop::thrusting(float movementdelta)
 {
-	FVector NewLocation = GetActorLocation();
-	NewLocation.X += movementdelta;
-	SetActorLocation(NewLocation);
+	//FVector NewLocation = GetActorLocation();
+	//NewLocation.X += movementdelta;
+	FVector XUnit = GetActorRotation().Vector();
+	SetActorLocation(GetActorLocation() + movementdelta*XUnit);
 }
 
 void ABop::yawing(float movementdelta)
@@ -37,7 +38,7 @@ void ABop::yawing(float movementdelta)
 	//NewLocation.Y += movementdelta;
 	//SetActorLocation(NewLocation);
 	FRotator NewRotation = GetActorRotation();
-	NewRotation.Yaw += movementdelta;
+	NewRotation.Roll += movementdelta;
 	SetActorRotation(NewRotation);
 	//FQuat RotationInput = FQuat(FRotator(0, movementdelta, 0));
 	//AddActorWorldRotation(RotationInput);
