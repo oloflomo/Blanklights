@@ -24,29 +24,35 @@ ABop::ABop()
 	RootComponent = CameraMesh;
 }
 
-void ABop::xaxismove(float movementdelta)
+void ABop::thrusting(float movementdelta)
 {
 	FVector NewLocation = GetActorLocation();
 	NewLocation.X += movementdelta;
 	SetActorLocation(NewLocation);
 }
 
-void ABop::yaxismove(float movementdelta)
+void ABop::yawing(float movementdelta)
 {
-	FVector NewLocation = GetActorLocation();
-	NewLocation.Y += movementdelta;
-	SetActorLocation(NewLocation);
+	//FVector NewLocation = GetActorLocation();
+	//NewLocation.Y += movementdelta;
+	//SetActorLocation(NewLocation);
+	FRotator NewRotation = GetActorRotation();
+	NewRotation.Yaw += movementdelta;
+	SetActorRotation(NewRotation);
 	//FQuat RotationInput = FQuat(FRotator(0, movementdelta, 0));
 	//AddActorWorldRotation(RotationInput);
 	//AddActorLocalTransform
 	//AddActorLocalRotation
 }
 
-void ABop::zaxismove(float movementdelta)
+void ABop::pitching(float movementdelta)
 {
-	FVector NewLocation = GetActorLocation();
-	NewLocation.Z += movementdelta;
-	SetActorLocation(NewLocation);
+	//FVector NewLocation = GetActorLocation();
+	//NewLocation.Z += movementdelta;
+	//SetActorLocation(NewLocation);
+	FRotator NewRotation = GetActorRotation();
+	NewRotation.Pitch += movementdelta;
+	SetActorRotation(NewRotation);
 	//FQuat RotationInput = FQuat(FRotator(movementdelta, 0, 0));
 	//AddActorWorldRotation(RotationInput);
 	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
@@ -55,21 +61,28 @@ void ABop::zaxismove(float movementdelta)
 void ABop::camlong(float movementdelta)
 {
 	FVector Location = Camera->GetRelativeLocation();
+	Location /= CameraRadius;
 	FVector2D NewSphericalLocation = Location.UnitCartesianToSpherical(); // blah //radians
 	NewSphericalLocation.X += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	Camera->SetRelativeRotation(FRotator(60 * NewSphericalLocation.X, 60 * NewSphericalLocation.X, 0));
+	Camera->SetRelativeRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
 }
 
 void ABop::camlat(float movementdelta)
 {
 	FVector Location = Camera->GetRelativeLocation();
+	Location /= CameraRadius;
 	FVector2D NewSphericalLocation = Location.UnitCartesianToSpherical(); // blah //radians
 	NewSphericalLocation.Y += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	Camera->SetRelativeRotation(FRotator(60 * NewSphericalLocation.X, 60 * NewSphericalLocation.X, 0));
+	Camera->SetRelativeRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
+}
+
+void ABop::CameraRadiusSwap(float movementdelta)
+{
+	CameraRadius += movementdelta*100;
 }
 
 // Called when the game starts or when spawned
@@ -92,10 +105,11 @@ void ABop::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//register inputs
-	PlayerInputComponent->BindAxis("thrust", this, &ABop::xaxismove);
-	PlayerInputComponent->BindAxis("pitch", this, &ABop::zaxismove);
-	PlayerInputComponent->BindAxis("yaw", this, &ABop::yaxismove);
+	PlayerInputComponent->BindAxis("thrust", this, &ABop::thrusting);
+	PlayerInputComponent->BindAxis("pitch", this, &ABop::pitching);
+	PlayerInputComponent->BindAxis("yaw", this, &ABop::yawing);
 	PlayerInputComponent->BindAxis("camlong", this, &ABop::camlong);
 	PlayerInputComponent->BindAxis("camlat", this, &ABop::camlat);
+	PlayerInputComponent->BindAxis("scroll", this, &ABop::CameraRadiusSwap);
 }
 

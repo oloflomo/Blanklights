@@ -18,13 +18,14 @@ public:
 	ABop();
 
 	// Delta movement
-	void xaxismove(float movementdelta);
-	void yaxismove(float movementdelta);
-	void zaxismove(float movementdelta);
+	void thrusting(float movementdelta);
+	void yawing(float movementdelta);
+	void pitching(float movementdelta);
 
 	//cam movement
 	void camlong(float movementdelta);
 	void camlat(float movementdelta);
+	void CameraRadiusSwap(float movementdelta);
 
 protected:
 	// Called when the game starts or when spawned
