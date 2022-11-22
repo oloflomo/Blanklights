@@ -17,6 +17,7 @@ ABop::ABop()
 	//Camera setup
 	Camera->SetupAttachment(CameraMesh);
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
+	Camera->SetRelativeRotation(FRotator(0, 0, 0));
 
 	CameraRadius = 200;
 
@@ -50,7 +51,7 @@ void ABop::zaxismove(float movementdelta)
 	//AddActorWorldRotation(RotationInput);
 	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
 }
-///////////////////////////////////////////////////
+
 void ABop::camlong(float movementdelta)
 {
 	FVector Location = Camera->GetRelativeLocation();
@@ -58,9 +59,7 @@ void ABop::camlong(float movementdelta)
 	NewSphericalLocation.X += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	//Camera->SetRelativeLocation(Location);
-	//Camera->SetRelativeRotation(FRotator(NewSphericalLocation.X * 57.296 - 90, NewSphericalLocation.Y * 57.296, 0));
-	//FVector OloflomoLocation = GetActorLocation();
+	Camera->SetRelativeRotation(FRotator(60 * NewSphericalLocation.X, 60 * NewSphericalLocation.X, 0));
 }
 
 void ABop::camlat(float movementdelta)
@@ -70,14 +69,7 @@ void ABop::camlat(float movementdelta)
 	NewSphericalLocation.Y += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	//Camera->SetRelativeLocation(Location);
-	//Camera->SetRelativeRotation(FRotator(NewSphericalLocation.X * 57.296 - 90, NewSphericalLocation.Y * 57.296, 0));
-	//FVector NewLocation = Camera->setrelative  GetRelativeTransform();
-	//NewLocation.Y += movementdelta;
-	//Camera->SetRelativeLocation(NewLocation);
-	//FVector NewLocation = GetActorLocation();
-	//NewLocation.Z += movementdelta;
-	//SetActorLocation(NewLocation);
+	Camera->SetRelativeRotation(FRotator(60 * NewSphericalLocation.X, 60 * NewSphericalLocation.X, 0));
 }
 
 // Called when the game starts or when spawned
