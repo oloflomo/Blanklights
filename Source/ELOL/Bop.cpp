@@ -85,8 +85,8 @@ void ABop::camlat(float movementdelta)
 void ABop::CameraRadiusSwap(float movementdelta)
 {
 	CameraRadius += movementdelta*100;
-	//CameraRadius = std::max(double(CameraRadius), double(50));
-	//CameraRadius = std::min(double(CameraRadius), double(1000));
+	CameraRadius = std::max(double(CameraRadius), double(50));
+	CameraRadius = std::min(double(CameraRadius), double(1000));
 }
 
 // Called when the game starts or when spawned

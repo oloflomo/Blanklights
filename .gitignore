@@ -1,4 +1,7 @@
 Binaries/*
 DerivedDataCache/*
-Intermidiate/*
+Intermediate/*
 Saved/*
+.vs/*
+.vsconfig
+ELOL.sln
