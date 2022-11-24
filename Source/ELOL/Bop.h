@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
-#include "Components/StaticMeshComponent.h"
 #include "Bop.generated.h"
 
 UCLASS()
@@ -16,11 +15,6 @@ class ELOL_API ABop : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ABop();
-
-	// Delta movement
-	void thrusting(float movementdelta);
-	void yawing(float movementdelta);
-	void pitching(float movementdelta);
 
 	//cam movement
 	void camlong(float movementdelta);
@@ -34,9 +28,6 @@ protected:
 	//main camera
 	UPROPERTY(EditAnywhere)
 		UCameraComponent* Camera;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* CameraMesh;
 
 	UPROPERTY(VisibleAnywhere)
 		double CameraRadius;
