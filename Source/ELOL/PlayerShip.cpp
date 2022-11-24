@@ -55,7 +55,7 @@ void APlayerShip::yawing(float movementdelta)
 	//NewLocation.Y += movementdelta;
 	//SetActorLocation(NewLocation);
 	FRotator NewRotation = RotationRoot->GetRelativeRotation();
-	NewRotation.Roll += movementdelta;
+	NewRotation.Yaw += movementdelta;
 	RotationRoot->SetRelativeRotation(NewRotation);
 	//FQuat RotationInput = FQuat(FRotator(0, movementdelta, 0));
 	//AddActorWorldRotation(RotationInput);
@@ -76,6 +76,19 @@ void APlayerShip::pitching(float movementdelta)
 	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
 }
 
+void APlayerShip::rolling(float movementdelta)
+{
+	//FVector NewLocation = GetActorLocation();
+	//NewLocation.Z += movementdelta;
+	//SetActorLocation(NewLocation);
+	FRotator NewRotation = RotationRoot->GetRelativeRotation();
+	NewRotation.Roll += movementdelta;
+	RotationRoot->SetRelativeRotation(NewRotation);
+	//FQuat RotationInput = FQuat(FRotator(movementdelta, 0, 0));
+	//AddActorWorldRotation(RotationInput);
+	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
+}
+
 // Called to bind functionality to input
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -85,6 +98,7 @@ void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::thrusting);
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
+	PlayerInputComponent->BindAxis("roll", this, &APlayerShip::rolling);
 	PlayerInputComponent->BindAxis("camlong", this, &APlayerShip::camlong);
 	PlayerInputComponent->BindAxis("camlat", this, &APlayerShip::camlat);
 	PlayerInputComponent->BindAxis("scroll", this, &APlayerShip::CameraRadiusSwap);

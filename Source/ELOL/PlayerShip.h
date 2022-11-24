@@ -20,6 +20,7 @@ public:
 	void thrusting(float movementdelta);
 	void yawing(float movementdelta);
 	void pitching(float movementdelta);
+	void rolling(float movementdelta);
 
 protected:
 
