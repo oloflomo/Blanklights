@@ -19,10 +19,12 @@ APlayerShip::APlayerShip()
 	UStaticMesh* Asset3 = MeshAsset3.Object;
 
 	RotationRoot = CreateDefaultSubobject<USceneComponent>(TEXT("RotationRoot"));
+	RotationTemp = CreateDefaultSubobject<USceneComponent>(TEXT("RotationTemp"));
 	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
 	RotationRoot->SetupAttachment(Root);
+	RotationTemp->SetupAttachment(RotationRoot);
 	Mesh1->SetupAttachment(RotationRoot);
 	Mesh2->SetupAttachment(RotationRoot);
 	Mesh3->SetupAttachment(RotationRoot);
@@ -31,6 +33,8 @@ APlayerShip::APlayerShip()
 	Mesh3->SetStaticMesh(Asset3);
 	RotationRoot->SetRelativeLocation(FVector(0, 0, 0));
 	RotationRoot->SetRelativeRotation(FRotator(0, 0, 0));
+	RotationTemp->SetRelativeLocation(FVector(0, 0, 0));
+	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
 	Mesh1->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh1->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
@@ -43,50 +47,38 @@ APlayerShip::APlayerShip()
 
 void APlayerShip::thrusting(float movementdelta)
 {
-	//FVector NewLocation = GetActorLocation();
-	//NewLocation.X += movementdelta;
 	FVector XUnit = RotationRoot->GetRelativeRotation().Vector();
 	SetActorLocation(GetActorLocation() + movementdelta*XUnit);
 }
 
 void APlayerShip::yawing(float movementdelta)
 {
-	//FVector NewLocation = GetActorLocation();
-	//NewLocation.Y += movementdelta;
-	//SetActorLocation(NewLocation);
-	FRotator NewRotation = RotationRoot->GetRelativeRotation();
+	//FRotator NewRotation = RotationRoot->GetRelativeRotation();
+	//NewRotation.Yaw += movementdelta;
+	//RotationRoot->SetRelativeRotation(NewRotation);
+	FRotator NewRotation = FRotator(0, 0, 0);
 	NewRotation.Yaw += movementdelta;
-	RotationRoot->SetRelativeRotation(NewRotation);
-	//FQuat RotationInput = FQuat(FRotator(0, movementdelta, 0));
-	//AddActorWorldRotation(RotationInput);
-	//AddActorLocalTransform
-	//AddActorLocalRotation
+	RotationTemp->SetRelativeRotation(NewRotation);
+	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
+	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
 }
 
 void APlayerShip::pitching(float movementdelta)
 {
-	//FVector NewLocation = GetActorLocation();
-	//NewLocation.Z += movementdelta;
-	//SetActorLocation(NewLocation);
-	FRotator NewRotation = RotationRoot->GetRelativeRotation();
+	FRotator NewRotation = FRotator(0, 0, 0);
 	NewRotation.Pitch += movementdelta;
-	RotationRoot->SetRelativeRotation(NewRotation);
-	//FQuat RotationInput = FQuat(FRotator(movementdelta, 0, 0));
-	//AddActorWorldRotation(RotationInput);
-	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
+	RotationTemp->SetRelativeRotation(NewRotation);
+	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
+	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
 }
 
 void APlayerShip::rolling(float movementdelta)
 {
-	//FVector NewLocation = GetActorLocation();
-	//NewLocation.Z += movementdelta;
-	//SetActorLocation(NewLocation);
-	FRotator NewRotation = RotationRoot->GetRelativeRotation();
+	FRotator NewRotation = FRotator(0, 0, 0);
 	NewRotation.Roll += movementdelta;
-	RotationRoot->SetRelativeRotation(NewRotation);
-	//FQuat RotationInput = FQuat(FRotator(movementdelta, 0, 0));
-	//AddActorWorldRotation(RotationInput);
-	//AddActorLocalRotation(RotationInput, false, 0, ETeleportType::None);
+	RotationTemp->SetRelativeRotation(NewRotation);
+	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
+	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
 }
 
 // Called to bind functionality to input

@@ -28,6 +28,9 @@ protected:
 		USceneComponent* RotationRoot;
 
 	UPROPERTY(EditAnywhere)
+		USceneComponent* RotationTemp;
+
+	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh1;
 
 	UPROPERTY(EditAnywhere)
