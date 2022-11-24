@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "Bop.generated.h"
 
 UCLASS()
@@ -17,11 +17,6 @@ public:
 	// Sets default values for this pawn's properties
 	ABop();
 
-	// Delta movement
-	void thrusting(float movementdelta);
-	void yawing(float movementdelta);
-	void pitching(float movementdelta);
-
 	//cam movement
 	void camlong(float movementdelta);
 	void camlat(float movementdelta);
@@ -31,12 +26,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere)
+		USceneComponent* Root;
+
 	//main camera
 	UPROPERTY(EditAnywhere)
 		UCameraComponent* Camera;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* CameraMesh;
 
 	UPROPERTY(VisibleAnywhere)
 		double CameraRadius;
