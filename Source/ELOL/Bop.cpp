@@ -16,7 +16,7 @@ ABop::ABop()
 
 	//Camera setup
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
-	Camera->SetWorldRotation(FRotator(0, 0, 0));
+	Camera->SetRelativeRotation(FRotator(0, 0, 0));
 
 	CameraRadius = 200;
 }
@@ -29,7 +29,7 @@ void ABop::camlong(float movementdelta)
 	NewSphericalLocation.X += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	Camera->SetWorldRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
+	Camera->SetRelativeRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
 }
 
 void ABop::camlat(float movementdelta)
@@ -40,7 +40,7 @@ void ABop::camlat(float movementdelta)
 	NewSphericalLocation.Y += movementdelta/100;
 	FVector NewLocation = NewSphericalLocation.SphericalToUnitCartesian();
 	Camera->SetRelativeLocation(NewLocation * CameraRadius);
-	Camera->SetWorldRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
+	Camera->SetRelativeRotation(FRotator(-90 + 57 * NewSphericalLocation.X, -180 + 57 * NewSphericalLocation.Y, 0));
 }
 
 void ABop::CameraRadiusSwap(float movementdelta)

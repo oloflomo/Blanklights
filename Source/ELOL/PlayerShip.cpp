@@ -11,10 +11,32 @@ APlayerShip::APlayerShip()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Camera->SetupAttachment(Mesh);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset1(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+	UStaticMesh* Asset1 = MeshAsset1.Object;
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset2(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+	UStaticMesh* Asset2 = MeshAsset2.Object;
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset3(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+	UStaticMesh* Asset3 = MeshAsset3.Object;
 
-	RootComponent = Mesh;
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
+	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
+	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
+	Camera->SetupAttachment(Root);
+	Mesh1->SetupAttachment(Root);
+	Mesh2->SetupAttachment(Root);
+	Mesh3->SetupAttachment(Root);
+	Mesh1->SetStaticMesh(Asset1);
+	Mesh2->SetStaticMesh(Asset2);
+	Mesh3->SetStaticMesh(Asset3);
+	Mesh1->SetRelativeLocation(FVector(0, 0, 0));
+	Mesh1->SetWorldRotation(FRotator(0, 0, 0));
+	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
+	Mesh2->SetWorldRotation(FRotator(0, 0, 0));
+	Mesh3->SetRelativeLocation(FVector(0, 0, 0));
+	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
+
+	RootComponent = Root;
 }
 
 void APlayerShip::thrusting(float movementdelta)

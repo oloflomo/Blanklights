@@ -24,7 +24,16 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh;
+		USceneComponent* Root;
+
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* Mesh1;
+
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* Mesh2;
+
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* Mesh3;
 
 public:
 	// Called to bind functionality to input
