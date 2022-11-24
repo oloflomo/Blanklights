@@ -12,8 +12,9 @@ APlayerShip::APlayerShip()
 
 	//Create components
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Camera->SetupAttachment(Mesh);
 
-	//RootComponent = Mesh;
+	RootComponent = Mesh;
 }
 
 void APlayerShip::thrusting(float movementdelta)
@@ -52,15 +53,15 @@ void APlayerShip::pitching(float movementdelta)
 }
 
 // Called to bind functionality to input
-//void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-//{
-//	SetupPlayerInputComponent(PlayerInputComponent);
-//
-//	//register inputs
-//	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::thrusting);
-//	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
-//	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
-//	PlayerInputComponent->BindAxis("camlong", this, &APlayerShip::camlong);
-//	PlayerInputComponent->BindAxis("camlat", this, &APlayerShip::camlat);
-//	PlayerInputComponent->BindAxis("scroll", this, &APlayerShip::CameraRadiusSwap);
-//}
+void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	//register inputs
+	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::thrusting);
+	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
+	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
+	PlayerInputComponent->BindAxis("camlong", this, &APlayerShip::camlong);
+	PlayerInputComponent->BindAxis("camlat", this, &APlayerShip::camlat);
+	PlayerInputComponent->BindAxis("scroll", this, &APlayerShip::CameraRadiusSwap);
+}

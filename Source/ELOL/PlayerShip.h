@@ -26,8 +26,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
 
-//public:
-//	// Called to bind functionality to input
-//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-//
+public:
+	// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 };
