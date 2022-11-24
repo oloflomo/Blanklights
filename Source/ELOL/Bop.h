@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
+#include "Components/SceneComponent.h"
 #include "Bop.generated.h"
 
 UCLASS()
@@ -24,6 +25,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere)
+		USceneComponent* Root;
 
 	//main camera
 	UPROPERTY(EditAnywhere)

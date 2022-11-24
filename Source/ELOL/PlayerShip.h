@@ -24,7 +24,7 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere)
-		USceneComponent* Root;
+		USceneComponent* RotationRoot;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh1;
