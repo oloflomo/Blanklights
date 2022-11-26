@@ -18,67 +18,63 @@ APlayerShip::APlayerShip()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset3(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134_002.sp2-1_Object134_002'"));
 	UStaticMesh* Asset3 = MeshAsset3.Object;
 
-	RotationRoot = CreateDefaultSubobject<USceneComponent>(TEXT("RotationRoot"));
-	RotationTemp = CreateDefaultSubobject<USceneComponent>(TEXT("RotationTemp"));
+	MeshRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MeshRoot"));
 	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
-	RotationRoot->SetupAttachment(Root);
-	RotationTemp->SetupAttachment(RotationRoot);
-	Mesh1->SetupAttachment(RotationRoot);
-	Mesh2->SetupAttachment(RotationRoot);
-	Mesh3->SetupAttachment(RotationRoot);
+	MeshRoot->SetupAttachment(Root);
+	Mesh2->SetupAttachment(MeshRoot);
+	Mesh3->SetupAttachment(MeshRoot);
 	Mesh1->SetStaticMesh(Asset1);
 	Mesh2->SetStaticMesh(Asset2);
 	Mesh3->SetStaticMesh(Asset3);
-	RotationRoot->SetRelativeLocation(FVector(0, 0, 0));
-	RotationRoot->SetRelativeRotation(FRotator(0, 0, 0));
-	RotationTemp->SetRelativeLocation(FVector(0, 0, 0));
-	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	MeshRoot->SetRelativeLocation(FVector(0, 0, 0));
+	MeshRoot->SetRelativeRotation(FRotator(0, 0, 0));
 	Mesh1->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh1->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh2->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
-
+	Mesh1->SetSimulatePhysics(true);
+	Mesh2->SetSimulatePhysics(false);
+	Mesh3->SetSimulatePhysics(false);
+	Mesh1->SetEnableGravity(0);
+	Mesh2->SetCanEverAffectNavigation(0);
+	Mesh2->SetCanEverAffectNavigation(0);
 	RootComponent = Root;
 }
 
-void APlayerShip::thrusting(float movementdelta)
+void APlayerShip::thrusting(float timedelta)
 {
-	FVector XUnit = RotationRoot->GetRelativeRotation().Vector();
-	SetActorLocation(GetActorLocation() + movementdelta*XUnit);
+	FVector XUnit = Mesh1->GetRelativeRotation().Vector();
+	Mesh1->AddForce(100000*timedelta*XUnit);
 }
 
-void APlayerShip::yawing(float movementdelta)
+void APlayerShip::yawing(float timedelta)
 {
-	//FRotator NewRotation = RotationRoot->GetRelativeRotation();
-	//NewRotation.Yaw += movementdelta;
-	//RotationRoot->SetRelativeRotation(NewRotation);
-	FRotator NewRotation = FRotator(0, 0, 0);
-	NewRotation.Yaw += movementdelta;
-	RotationTemp->SetRelativeRotation(NewRotation);
-	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
-	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	FVector YUnit = Mesh1->GetRightVector();
+	Mesh1->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(1000000, 0, 0));
 }
 
-void APlayerShip::pitching(float movementdelta)
+void APlayerShip::pitching(float timedelta)
 {
-	FRotator NewRotation = FRotator(0, 0, 0);
-	NewRotation.Pitch += movementdelta;
-	RotationTemp->SetRelativeRotation(NewRotation);
-	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
-	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	FVector ZUnit = Mesh1->GetUpVector();
+	Mesh1->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(1000000, 0, 0));
 }
 
-void APlayerShip::rolling(float movementdelta)
+void APlayerShip::rolling(float timedelta)
 {
-	FRotator NewRotation = FRotator(0, 0, 0);
-	NewRotation.Roll += movementdelta;
-	RotationTemp->SetRelativeRotation(NewRotation);
-	RotationRoot->SetRelativeRotation(RotationTemp->GetComponentRotation());
-	RotationTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	FVector ZUnit = Mesh1->GetUpVector();
+	Mesh1->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 1000000));
+}
+
+void APlayerShip::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
 }
 
 // Called to bind functionality to input

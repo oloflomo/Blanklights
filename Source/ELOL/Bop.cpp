@@ -13,13 +13,17 @@ ABop::ABop()
 
 	//Create components
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	CameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CameraRoot"));
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	CameraTemp = CreateDefaultSubobject<USceneComponent>(TEXT("CameraTemp"));
 
 	//Camera setup
-	Camera->SetupAttachment(Root);
+	Camera->SetupAttachment(CameraRoot);
 	CameraTemp->SetupAttachment(Camera);
+	CameraRoot->SetupAttachment(Root);
 	Root->SetWorldRotation(FRotator(0, 0, 0));
+	CameraRoot->SetRelativeLocation(FVector(0, 0, 0));
+	CameraRoot->SetRelativeRotation(FRotator(0, 0, 0));
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
 	Camera->SetRelativeRotation(FRotator(0, 0, 0));
 	CameraTemp->SetRelativeLocation(FVector(0, 0, 0));
@@ -66,7 +70,6 @@ void ABop::BeginPlay()
 void ABop::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input

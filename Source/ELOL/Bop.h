@@ -30,6 +30,9 @@ protected:
 		USceneComponent* Root;
 
 	UPROPERTY(EditAnywhere)
+		USceneComponent* CameraRoot;
+
+	UPROPERTY(EditAnywhere)
 		USceneComponent* CameraTemp;
 
 	//main camera
