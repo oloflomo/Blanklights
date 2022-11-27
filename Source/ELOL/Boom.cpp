@@ -10,7 +10,7 @@ ABoom::ABoom()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/grafika/bullets/bullet.bullet'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/Realistic_Starter_VFX_Pack_Vol2/Mesh/SM_Splash_A.SM_Splash_A'"));
 	UStaticMesh* Asset = MeshAsset.Object;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
@@ -27,11 +27,16 @@ ABoom::ABoom()
 void ABoom::BeginPlay()
 {
 	Super::BeginPlay();
-
+	lifespan = 500;
 }
 
 // Called every frame
 void ABoom::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	lifespan--;
+	if (lifespan < 0)
+	{
+		GetWorld()->DestroyActor(this);
+	}
 }
