@@ -22,6 +22,7 @@ public:
 	void pitching(float movementdelta);
 	void rolling(float movementdelta);
 	void InitFire();
+	virtual void CameraToggleSwap();
 
 protected:
 

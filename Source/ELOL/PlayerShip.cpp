@@ -75,11 +75,44 @@ void APlayerShip::Tick(float DeltaTime)
 	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
 	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
 	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
+
+	if (Toggle == 1)
+	{
+		Camera->SetupAttachment(Mesh1);
+		CameraRadius = 300;
+		Camera->SetRelativeRotation(FRotator(0, 0, 0));
+		Camera->SetRelativeLocation(FVector(-300, 0, 0));
+	}
 }
 
 void APlayerShip::InitFire()
 {
 	GetWorld()->SpawnActor<AActor>(BulletType, Mesh1->GetComponentLocation(), Mesh1->GetComponentRotation());
+}
+
+void APlayerShip::CameraToggleSwap()
+{
+	//if (delay > 0)
+	//{
+		//if (Toggle == 1)
+		//{
+		//	Camera->SetupAttachment(CameraRoot);
+		//	Toggle = !Toggle;
+		//	delay = -50;
+		//	CameraRadius = 300;
+		//	Camera->SetRelativeRotation(FRotator(0, 0, 0));
+		//	Camera->SetRelativeLocation(FVector(-300, 0, 0));
+		//}
+		//if (Toggle == 0)
+		//{
+			Camera->SetupAttachment(Mesh1);
+			Toggle = 1;
+			delay = -50;
+			CameraRadius = 300;
+			Camera->SetRelativeRotation(FRotator(0, 0, 0));
+			Camera->SetRelativeLocation(FVector(-300, 0, 0));
+		//}
+	//}
 }
 
 // Called to bind functionality to input
@@ -93,7 +126,4 @@ void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
 	PlayerInputComponent->BindAxis("roll", this, &APlayerShip::rolling);
-	PlayerInputComponent->BindAxis("camlong", this, &APlayerShip::camlong);
-	PlayerInputComponent->BindAxis("camlat", this, &APlayerShip::camlat);
-	PlayerInputComponent->BindAxis("scroll", this, &APlayerShip::CameraRadiusSwap);
 }

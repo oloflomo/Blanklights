@@ -21,6 +21,7 @@ public:
 	void camlong(float movementdelta);
 	void camlat(float movementdelta);
 	void CameraRadiusSwap(float movementdelta);
+	virtual void CameraToggleSwap();
 
 protected:
 	// Called when the game starts or when spawned
@@ -41,6 +42,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 		double CameraRadius;
+
+	UPROPERTY(VisibleAnywhere)
+		bool Toggle;
+
+	UPROPERTY(VisibleAnywhere)
+		double delay;
 
 public:	
 	// Called every frame
