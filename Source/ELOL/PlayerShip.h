@@ -30,6 +30,9 @@ protected:
 		USceneComponent* MeshRoot;
 
 	UPROPERTY(EditAnywhere)
+		USceneComponent* MeshTemp;
+
+	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh1;
 
 	UPROPERTY(EditAnywhere)

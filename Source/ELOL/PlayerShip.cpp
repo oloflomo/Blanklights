@@ -22,6 +22,8 @@ APlayerShip::APlayerShip()
 	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
+	MeshTemp = CreateDefaultSubobject<USceneComponent>(TEXT("MeshTemp"));
+	MeshTemp->SetupAttachment(Mesh1);
 	MeshRoot->SetupAttachment(Root);
 	Mesh2->SetupAttachment(MeshRoot);
 	Mesh3->SetupAttachment(MeshRoot);
@@ -32,6 +34,8 @@ APlayerShip::APlayerShip()
 	MeshRoot->SetRelativeRotation(FRotator(0, 0, 0));
 	Mesh1->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh1->SetWorldRotation(FRotator(0, 0, 0));
+	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
+	MeshTemp->SetRelativeRotation(FRotator(0, 0, 0));
 	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh2->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetRelativeLocation(FVector(0, 0, 0));
@@ -87,7 +91,11 @@ void APlayerShip::Tick(float DeltaTime)
 
 void APlayerShip::InitFire()
 {
-	GetWorld()->SpawnActor<AActor>(BulletType, Mesh1->GetComponentLocation(), Mesh1->GetComponentRotation());
+	MeshTemp->SetRelativeLocation(FVector(500, -50, 0));
+	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
+	MeshTemp->SetRelativeLocation(FVector(500, 50, 0));
+	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
+	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
 }
 
 void APlayerShip::CameraToggleSwap()
