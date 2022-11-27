@@ -27,6 +27,7 @@ ALASER::ALASER()
 void ALASER::BeginPlay()
 {
 	Super::BeginPlay();
+	lifespan = 100;
 }
 
 // Called every frame
@@ -34,5 +35,10 @@ void ALASER::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Mesh->AddForce(10000 * Mesh->GetUpVector());
+	lifespan--;
+	if (lifespan < 0)
+	{
+		GetWorld()->DestroyActor(this);
+	}
 }
 

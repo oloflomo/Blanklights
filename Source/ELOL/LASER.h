@@ -17,11 +17,14 @@ public:
 	ALASER();
 
 protected:
-	// Called when the game starts or when spawned
+	// Called when the game starts or when spawneds
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere)
+		int lifespan;
 
 public:	
 	// Called every frame
