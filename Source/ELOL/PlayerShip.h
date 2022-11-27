@@ -21,6 +21,7 @@ public:
 	void yawing(float movementdelta);
 	void pitching(float movementdelta);
 	void rolling(float movementdelta);
+	void InitFire();
 
 protected:
 
@@ -35,6 +36,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> BulletType;
 
 public:
 	virtual void Tick(float DeltaTime) override;

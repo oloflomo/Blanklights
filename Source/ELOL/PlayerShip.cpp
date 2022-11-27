@@ -77,12 +77,18 @@ void APlayerShip::Tick(float DeltaTime)
 	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
 }
 
+void APlayerShip::InitFire()
+{
+	GetWorld()->SpawnActor<AActor>(BulletType, Mesh1->GetComponentLocation(), Mesh1->GetComponentRotation());
+}
+
 // Called to bind functionality to input
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//register inputs
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShip::InitFire);
 	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::thrusting);
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
