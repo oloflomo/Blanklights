@@ -6,7 +6,7 @@
 // Sets default values
 ALASER::ALASER()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
@@ -27,7 +27,6 @@ ALASER::ALASER()
 	Capsule->SetWorldRotation(FRotator(-90, 0, 0));
 	Capsule->SetupAttachment(RootComponent);
 	Capsule->InitCapsuleSize(30.5, 30.f);
-	Capsule->OnComponentBeginOverlap.AddDynamic(this, &ALASER::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -35,6 +34,7 @@ void ALASER::BeginPlay()
 {
 	Super::BeginPlay();
 	lifespan = 1000;
+	Mesh->OnComponentHit.AddDynamic(this, &ALASER::OnHit);
 }
 
 void ALASER::Collision()
@@ -43,13 +43,13 @@ void ALASER::Collision()
 	GetWorld()->DestroyActor(this);
 }
 
-void ALASER::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ALASER::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("overlap begin"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("COLLISION"));
 		}
 		Collision();
 	}
