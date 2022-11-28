@@ -20,6 +20,7 @@ APlayerShip::APlayerShip()
 
 	MeshRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MeshRoot"));
 	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
+	Mesh1->SetupAttachment(Root);
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
 	MeshTemp = CreateDefaultSubobject<USceneComponent>(TEXT("MeshTemp"));

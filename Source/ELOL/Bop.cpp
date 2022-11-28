@@ -22,6 +22,7 @@ ABop::ABop()
 	CameraTemp->SetupAttachment(Camera);
 	CameraRoot->SetupAttachment(Root);
 	Root->SetWorldRotation(FRotator(0, 0, 0));
+	Root->SetWorldLocation(GetActorLocation());
 	CameraRoot->SetRelativeLocation(FVector(0, 0, 0));
 	CameraRoot->SetRelativeRotation(FRotator(0, 0, 0));
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
