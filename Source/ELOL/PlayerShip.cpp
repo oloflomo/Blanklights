@@ -51,8 +51,69 @@ APlayerShip::APlayerShip()
 	MeshTemp->SetRelativeRotation(FRotator(0, 0, 0));
 	
 	RootComponent = Root;
-	durability = 500;
 }
+
+
+
+
+
+
+//events
+
+void APlayerShip::Collision()
+{
+	durability -= 10;
+}
+
+void APlayerShip::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("CRASH"));
+		}
+		Collision();
+	}
+}
+
+void APlayerShip::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
+
+	if (Toggle == 1)
+	{
+		Camera->SetupAttachment(Mesh1);
+		CameraRadius = 300;
+		Camera->SetRelativeRotation(FRotator(0, 0, 0));
+		Camera->SetRelativeLocation(FVector(-300, 0, 0));
+	}
+
+	if (durability < 0)
+	{
+		GetWorld()->DestroyActor(this);
+	}
+}
+
+void APlayerShip::BeginPlay()
+{
+	Super::BeginPlay();
+	durability = 30;
+	Mesh1->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+}
+
+
+
+
+
+
+// Player actions
+
 
 void APlayerShip::thrusting(float timedelta)
 {
@@ -76,22 +137,6 @@ void APlayerShip::rolling(float timedelta)
 {
 	FVector ZUnit = Mesh1->GetUpVector();
 	Mesh1->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 1000000));
-}
-
-void APlayerShip::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
-	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
-	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
-
-	if (Toggle == 1)
-	{
-		Camera->SetupAttachment(Mesh1);
-		CameraRadius = 300;
-		Camera->SetRelativeRotation(FRotator(0, 0, 0));
-		Camera->SetRelativeLocation(FVector(-300, 0, 0));
-	}
 }
 
 void APlayerShip::InitFire()
@@ -127,6 +172,15 @@ void APlayerShip::CameraToggleSwap()
 		//}
 	//}
 }
+
+
+
+
+
+
+
+
+
 
 // Called to bind functionality to input
 void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

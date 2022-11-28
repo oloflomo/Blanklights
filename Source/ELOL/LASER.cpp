@@ -49,7 +49,7 @@ void ALASER::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("COLLISION"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HIT"));
 		}
 		Collision();
 	}

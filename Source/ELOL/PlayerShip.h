@@ -16,7 +16,7 @@ public:
 	// Sets default values for this pawn's properties
 	APlayerShip();
 
-	// Delta movement
+	// Player Actions
 	void thrusting(float movementdelta);
 	void yawing(float movementdelta);
 	void pitching(float movementdelta);
@@ -24,8 +24,20 @@ public:
 	void InitFire();
 	virtual void CameraToggleSwap();
 
+
+	//events
+
+	void Collision();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 protected:
 
+	// Called when the game starts or when spawneds
+	virtual void BeginPlay() override;
+
+	//components
 	UPROPERTY(EditAnywhere)
 		USceneComponent* MeshRoot;
 
@@ -44,10 +56,16 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> BulletType;
 
+
+
+
+	//variables
 	UPROPERTY(EditAnywhere)
 		int durability;
 
 public:
+
+	//overrides
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

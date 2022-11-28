@@ -26,6 +26,9 @@ protected:
 	// Called when the game starts or when spawneds
 	virtual void BeginPlay() override;
 
+
+
+	//components
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
 
@@ -33,10 +36,13 @@ protected:
 		UCapsuleComponent* Capsule;
 
 	UPROPERTY(EditAnywhere)
-		int lifespan;
-
-	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> BoomType;
+
+
+
+	//variables
+	UPROPERTY(EditAnywhere)
+		int lifespan;
 
 public:	
 	// Called every frame
