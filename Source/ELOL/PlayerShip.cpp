@@ -65,6 +65,12 @@ void APlayerShip::Collision()
 	durability -= 10;
 }
 
+void APlayerShip::Destruction()
+{
+	GetWorld()->SpawnActor<AActor>(BoomType, Mesh1->GetComponentLocation(), Mesh1->GetComponentRotation());
+	GetWorld()->DestroyActor(this);
+}
+
 void APlayerShip::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
@@ -94,7 +100,7 @@ void APlayerShip::Tick(float DeltaTime)
 
 	if (durability < 0)
 	{
-		GetWorld()->DestroyActor(this);
+		Destruction();
 	}
 }
 

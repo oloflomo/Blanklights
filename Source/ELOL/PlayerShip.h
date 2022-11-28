@@ -29,6 +29,8 @@ public:
 
 	void Collision();
 
+	void Destruction();
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
@@ -57,6 +59,9 @@ protected:
 		TSubclassOf<AActor> BulletType;
 
 
+	//properties
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> BoomType;
 
 
 	//variables

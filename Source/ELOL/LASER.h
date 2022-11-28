@@ -35,6 +35,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UCapsuleComponent* Capsule;
 
+
+
+	//properties
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> BoomType;
 
