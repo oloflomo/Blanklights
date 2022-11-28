@@ -19,35 +19,39 @@ APlayerShip::APlayerShip()
 	UStaticMesh* Asset3 = MeshAsset3.Object;
 
 	MeshRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MeshRoot"));
-	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
-	Mesh1->SetupAttachment(Root);
-	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
-	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
-	MeshTemp = CreateDefaultSubobject<USceneComponent>(TEXT("MeshTemp"));
-	MeshTemp->SetupAttachment(Mesh1);
 	MeshRoot->SetupAttachment(Root);
-	Mesh2->SetupAttachment(MeshRoot);
-	Mesh3->SetupAttachment(MeshRoot);
-	Mesh1->SetStaticMesh(Asset1);
-	Mesh2->SetStaticMesh(Asset2);
-	Mesh3->SetStaticMesh(Asset3);
 	MeshRoot->SetRelativeLocation(FVector(0, 0, 0));
 	MeshRoot->SetRelativeRotation(FRotator(0, 0, 0));
+
+	Mesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
+	Mesh1->SetupAttachment(Root);
+	Mesh1->SetStaticMesh(Asset1);
 	Mesh1->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh1->SetWorldRotation(FRotator(0, 0, 0));
-	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
-	MeshTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	Mesh1->SetSimulatePhysics(true);
+	Mesh1->SetEnableGravity(0);
+
+	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
+	Mesh2->SetupAttachment(MeshRoot);
+	Mesh2->SetStaticMesh(Asset2);
 	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh2->SetWorldRotation(FRotator(0, 0, 0));
+	Mesh2->SetSimulatePhysics(false);
+
+	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
+	Mesh3->SetupAttachment(MeshRoot);
+	Mesh3->SetStaticMesh(Asset3);
 	Mesh3->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
-	Mesh1->SetSimulatePhysics(true);
-	Mesh2->SetSimulatePhysics(false);
 	Mesh3->SetSimulatePhysics(false);
-	Mesh1->SetEnableGravity(0);
-	Mesh2->SetCanEverAffectNavigation(0);
-	Mesh2->SetCanEverAffectNavigation(0);
+
+	MeshTemp = CreateDefaultSubobject<USceneComponent>(TEXT("MeshTemp"));
+	MeshTemp->SetupAttachment(Mesh1);
+	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
+	MeshTemp->SetRelativeRotation(FRotator(0, 0, 0));
+	
 	RootComponent = Root;
+	durability = 500;
 }
 
 void APlayerShip::thrusting(float timedelta)

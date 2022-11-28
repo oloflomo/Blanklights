@@ -44,6 +44,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> BulletType;
 
+	UPROPERTY(EditAnywhere)
+		int durability;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input
