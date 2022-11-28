@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
+#include "Components/SceneComponent.h"
 #include "Boom.generated.h"
 
 UCLASS()
@@ -21,10 +23,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh;
+		int lifespan;
 
 	UPROPERTY(EditAnywhere)
-		int lifespan;
+		USceneComponent* Root;
+
+	UPROPERTY(EditAnywhere)
+		UParticleSystem* ParticleFX1;
 
 public:
 	// Called every frame

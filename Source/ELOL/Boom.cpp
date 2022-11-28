@@ -10,24 +10,22 @@ ABoom::ABoom()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/Realistic_Starter_VFX_Pack_Vol2/Mesh/SM_Splash_A.SM_Splash_A'"));
-	UStaticMesh* Asset = MeshAsset.Object;
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> Particle(TEXT("/Script/Engine.ParticleSystem'/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Explosion/P_Explosion_Big_A.P_Explosion_Big_A'"));
+	ParticleFX1 = Particle.Object;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetRelativeLocation(FVector(0, 0, 0));
-	Mesh->SetWorldRotation(FRotator(0, 0, 0));
-	Mesh->SetStaticMesh(Asset);
-	Mesh->SetSimulatePhysics(false);
-	Mesh->SetEnableGravity(0);
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	Root->SetRelativeLocation(FVector(0, 0, 0));
+	Root->SetWorldRotation(FRotator(0, 0, 0));
 
-	RootComponent = Mesh;
+	RootComponent = Root;
 }
 
 // Called when the game starts or when spawned
 void ABoom::BeginPlay()
 {
 	Super::BeginPlay();
-	lifespan = 500;
+	lifespan = 10;
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleFX1, Root->GetComponentLocation());
 }
 
 // Called every frame
