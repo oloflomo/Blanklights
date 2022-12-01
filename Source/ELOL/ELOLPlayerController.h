@@ -13,5 +13,11 @@ UCLASS()
 class ELOL_API AELOLPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+	bool thru;
+
+	void thrusting(bool sth);
+
+	UFUNCTION(reliable, server, WithValidation)
+	void Serverthrusting(bool sth);
 };

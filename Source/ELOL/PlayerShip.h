@@ -24,7 +24,6 @@ public:
 	void InitFire();
 	virtual void CameraToggleSwap();
 
-
 	//events
 
 	void Collision();

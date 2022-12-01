@@ -116,15 +116,13 @@ void APlayerShip::BeginPlay()
 
 
 
-
-
 // Player actions
-
 
 void APlayerShip::thrusting(float timedelta)
 {
 	FVector XUnit = Mesh1->GetRelativeRotation().Vector();
 	Mesh1->AddForce(100000*timedelta*XUnit);
+	//Controller.thrusting(1);
 }
 
 void APlayerShip::yawing(float timedelta)
