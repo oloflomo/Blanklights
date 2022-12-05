@@ -3,6 +3,7 @@
 
 #include "ELOLPlayerController.h"
 
+<<<<<<< HEAD
 void AELOLPlayerController::thrusting(bool sth)
 {
 	// Change the value of the bSomeBool property
@@ -26,3 +27,5 @@ void AELOLPlayerController::Serverthrusting_Implementation(bool sth)
 {
 	thrusting(sth);
 }
+=======
+>>>>>>> multiplayer
