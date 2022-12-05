@@ -11,7 +11,7 @@ void AELOLPlayerController::thrusting(bool sth)
 	// In this case we also want to call the server function to tell it to change the bSomeBool property as well.
 	//if (Role < ROLE_Authority)
 	//{
-		Serverthrusting(sth);
+	//	Serverthrusting(sth);
 	//}
 }
 

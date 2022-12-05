@@ -113,8 +113,53 @@ void APlayerShip::BeginPlay()
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 }
 
+//server
 
 
+void APlayerShip::Serverthrusting_Implementation(float timedelta)
+{
+	thrusting(timedelta);
+}
+bool APlayerShip::Serverthrusting_Validate(float timedelta)
+{
+	return true;
+}
+
+void APlayerShip::ServerInitFire_Implementation()
+{
+	InitFire();
+}
+bool APlayerShip::ServerInitFire_Validate()
+{
+	return true;
+}
+
+void APlayerShip::Serverpitching_Implementation(float timedelta)
+{
+	pitching(timedelta);
+}
+bool APlayerShip::Serverpitching_Validate(float timedelta)
+{
+	return true;
+}
+
+void APlayerShip::Serveryawing_Implementation(float timedelta)
+{
+	yawing(timedelta);
+}
+bool APlayerShip::Serveryawing_Validate(float timedelta)
+{
+	return true;
+}
+
+void APlayerShip::Serverrolling_Implementation(float timedelta)
+{
+	rolling(timedelta);
+}
+bool APlayerShip::Serverrolling_Validate(float timedelta)
+{
+	return true;
+}
 
 // Player actions
 
@@ -192,9 +237,9 @@ void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//register inputs
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShip::InitFire);
-	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::thrusting);
-	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::pitching);
-	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::yawing);
-	PlayerInputComponent->BindAxis("roll", this, &APlayerShip::rolling);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShip::ServerInitFire);
+	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::Serverthrusting);
+	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::Serverpitching);
+	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::Serveryawing);
+	PlayerInputComponent->BindAxis("roll", this, &APlayerShip::Serverrolling);
 }

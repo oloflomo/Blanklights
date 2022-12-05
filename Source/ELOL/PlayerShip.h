@@ -24,6 +24,19 @@ public:
 	void InitFire();
 	virtual void CameraToggleSwap();
 
+
+	//server
+	UFUNCTION(server, unreliable, WithValidation)
+	void Serverthrusting(float movementdelta);
+	UFUNCTION(server, unreliable, WithValidation)
+	void ServerInitFire();
+	UFUNCTION(server, unreliable, WithValidation)
+	void Serverpitching(float movementdelta);
+	UFUNCTION(server, unreliable, WithValidation)
+	void Serveryawing(float movementdelta);
+	UFUNCTION(server, unreliable, WithValidation)
+	void Serverrolling(float movementdelta);
+
 	//events
 
 	void Collision();
