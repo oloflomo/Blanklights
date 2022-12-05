@@ -12,3 +12,10 @@ if all good:
 -wait a while
 -after project launched right click uproject file -> generate vs files
 done
+
+
+to launch
+-check firewall
+-check vpn's
+-check network adapters
+-check virtual box
