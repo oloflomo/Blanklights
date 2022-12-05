@@ -13,15 +13,5 @@ UCLASS()
 class ELOL_API AELOLPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-<<<<<<< HEAD
 
-	bool thru;
-
-	void thrusting(bool sth);
-
-	UFUNCTION(reliable, server, WithValidation)
-	void Serverthrusting(bool sth);
-=======
-	
->>>>>>> multiplayer
 };
