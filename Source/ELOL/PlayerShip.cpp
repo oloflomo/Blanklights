@@ -190,9 +190,9 @@ void APlayerShip::rolling(float timedelta)
 
 void APlayerShip::InitFire()
 {
-	MeshTemp->SetRelativeLocation(FVector(500, -50, 0));
+	MeshTemp->SetRelativeLocation(FVector(200, -50, 0));
 	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
-	MeshTemp->SetRelativeLocation(FVector(500, 50, 0));
+	MeshTemp->SetRelativeLocation(FVector(200, 50, 0));
 	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
 	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
 }

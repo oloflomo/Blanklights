@@ -35,6 +35,7 @@ void ALASER::BeginPlay()
 	Super::BeginPlay();
 	lifespan = 1000;
 	Mesh->OnComponentHit.AddDynamic(this, &ALASER::OnHit);
+	Mesh->SetPhysicsLinearVelocity(10000 * Mesh->GetUpVector());
 }
 
 void ALASER::Collision()
