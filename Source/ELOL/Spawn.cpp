@@ -20,7 +20,7 @@ ASpawn::ASpawn()
 void ASpawn::BeginPlay()
 {
 	Super::BeginPlay();
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 400; i++)
 	{
 		int x_component = FMath::RandRange(int(-100000), int(100000));
 		int y_component = FMath::RandRange(int(-100000), int(100000));
@@ -32,7 +32,7 @@ void ASpawn::BeginPlay()
 // Called every frame
 void ASpawn::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime); 
 
 }
 
