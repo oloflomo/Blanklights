@@ -2,8 +2,7 @@
 
 
 #include "Spawn.h"
-#include<algorithm>
-#include<vector>
+
 
 // Sets default values
 ASpawn::ASpawn()
@@ -21,11 +20,11 @@ ASpawn::ASpawn()
 void ASpawn::BeginPlay()
 {
 	Super::BeginPlay();
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1000; i++)
 	{
-		int x_component = i * 1000;
-		int y_component = i * 1000;
-		int z_component = i * 1000;
+		int x_component = FMath::RandRange(int(-100000), int(100000));
+		int y_component = FMath::RandRange(int(-100000), int(100000));
+		int z_component = FMath::RandRange(int(-100000), int(100000));
 		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 }
