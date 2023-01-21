@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Bop.h"
 #include "Components/StaticMeshComponent.h"
+#include<algorithm>
 #include "PlayerShip.generated.h"
 
 UCLASS()

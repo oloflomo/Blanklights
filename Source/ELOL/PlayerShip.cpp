@@ -3,7 +3,6 @@
 
 #include "PlayerShip.h"
 #include "Math/Vector.h"
-#include<algorithm>
 
 APlayerShip::APlayerShip()
 {
