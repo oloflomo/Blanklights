@@ -57,17 +57,16 @@ bool AworkshopPawn::ServerYmove_Validate(float timedelta)
 
 // Player actions
 
-void AworkshopPawn::Xmove(float timedelta)
+void AworkshopPawn::Xmove(float movementdelta)
 {
 	FVector XUnit = Mesh->GetRelativeRotation().Vector();
-	//Mesh1->AddForce(100000 * timedelta * XUnit);
-	//Controller.thrusting(1);
+	Mesh->SetWorldLocation(movementdelta * FVector(0, 0, 10) + Mesh->GetComponentLocation());
 }
 
-void AworkshopPawn::Ymove(float timedelta)
+void AworkshopPawn::Ymove(float movementdelta)
 {
 	FVector YUnit = Mesh->GetRightVector();
-	//Mesh1->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(1000000, 0, 0));
+	Mesh->SetWorldLocation(movementdelta * FVector(0, 10, 0) + Mesh->GetComponentLocation());
 }
 
 void AworkshopPawn::Tick(float DeltaTime)
@@ -76,14 +75,6 @@ void AworkshopPawn::Tick(float DeltaTime)
 	CameraRoot->SetWorldLocation(Mesh->GetComponentLocation());
 	MeshRoot->SetWorldLocation(Mesh->GetComponentLocation());
 	MeshRoot->SetWorldRotation(Mesh->GetComponentRotation());
-
-	if (Toggle == 1)
-	{
-		Camera->SetupAttachment(Mesh);
-		CameraRadius = 300;
-		Camera->SetRelativeRotation(FRotator(0, 0, 0));
-		Camera->SetRelativeLocation(FVector(-300, 0, 0));
-	}
 }
 
 void AworkshopPawn::BeginPlay()
@@ -97,6 +88,6 @@ void AworkshopPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//register inputs
-	//PlayerInputComponent->BindAxis("pitch", this, &AworkshopPawn::ServerXmove);
-	//PlayerInputComponent->BindAxis("yaw", this, &AworkshopPawn::ServerYmove);
+	PlayerInputComponent->BindAxis("pitch", this, &AworkshopPawn::ServerXmove);
+	PlayerInputComponent->BindAxis("yaw", this, &AworkshopPawn::ServerYmove);
 }
