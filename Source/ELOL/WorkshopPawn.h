@@ -4,32 +4,37 @@
 
 #include "CoreMinimal.h"
 #include "Bop.h"
-#include "WorkshopPawn.generated.h"
+#include "Components/StaticMeshComponent.h"
+#include<algorithm>
+#include "Math/Vector.h"
+#include "Components/CapsuleComponent.h"
+#include "workshopPawn.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class ELOL_API AWorkshopPawn : public ABop
+class ELOL_API AworkshopPawn : public ABop
 {
 	GENERATED_BODY()
-
+	
 public:
 	// Sets default values for this pawn's properties
-	AWorkshopPawn();
+	AworkshopPawn();
 
 	// Player Actions
-	void X_move(float movementdelta);
-	void Y_move(float movementdelta);
-	virtual void CameraToggleSwap();
-
+	void Xmove(float movementdelta);
+	void Ymove(float movementdelta);
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
-		void ServerX_move(float movementdelta);
+		void ServerXmove(float movementdelta);
 	UFUNCTION(server, unreliable, WithValidation)
-		void ServerY_move(float movementdelta);
+		void ServerYmove(float movementdelta);
 
 protected:
 
-	// Called when the game starts or when spawneds
+	//Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	//components
@@ -37,12 +42,14 @@ protected:
 		USceneComponent* MeshRoot;
 
 	UPROPERTY(EditAnywhere)
-		USceneComponent* MeshTemp;
+		UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh1;
+		USceneComponent* MeshTemp;
 
+	//properties
 
+	//variables
 
 public:
 
@@ -50,4 +57,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 };

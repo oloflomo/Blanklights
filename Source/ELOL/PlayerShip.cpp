@@ -2,7 +2,6 @@
 
 
 #include "PlayerShip.h"
-#include "Math/Vector.h"
 
 APlayerShip::APlayerShip()
 {
@@ -54,9 +53,6 @@ APlayerShip::APlayerShip()
 
 
 
-
-
-
 //events
 
 void APlayerShip::Collision()
@@ -80,36 +76,6 @@ void APlayerShip::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		}
 		Collision();
 	}
-}
-
-void APlayerShip::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
-	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
-	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
-
-	if (Toggle == 1)
-	{
-		Camera->SetupAttachment(Mesh1);
-		CameraRadius = 300;
-		Camera->SetRelativeRotation(FRotator(0, 0, 0));
-		Camera->SetRelativeLocation(FVector(-300, 0, 0));
-	}
-
-	if (durability < 0)
-	{
-		Destruction();
-	}
-}
-
-void APlayerShip::BeginPlay()
-{
-	Super::BeginPlay();
-	durability = 30;
-	Mesh1->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
-	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
-	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 }
 
 //server
@@ -224,8 +190,36 @@ void APlayerShip::CameraToggleSwap()
 
 
 
+//overrides
+void APlayerShip::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	CameraRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldLocation(Mesh1->GetComponentLocation());
+	MeshRoot->SetWorldRotation(Mesh1->GetComponentRotation());
 
+	if (Toggle == 1)
+	{
+		Camera->SetupAttachment(Mesh1);
+		CameraRadius = 300;
+		Camera->SetRelativeRotation(FRotator(0, 0, 0));
+		Camera->SetRelativeLocation(FVector(-300, 0, 0));
+	}
 
+	if (durability < 0)
+	{
+		Destruction();
+	}
+}
+
+void APlayerShip::BeginPlay()
+{
+	Super::BeginPlay();
+	durability = 30;
+	Mesh1->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+}
 
 
 
