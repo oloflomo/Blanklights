@@ -10,13 +10,10 @@ ALASER::ALASER()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/grafika/bullets/bullet.bullet'"));
-	UStaticMesh* Asset = MeshAsset.Object;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
 	Mesh->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh->SetWorldRotation(FRotator(-90, 0, 0));
-	Mesh->SetStaticMesh(Asset);
 	Mesh->SetSimulatePhysics(true);
 	Mesh->SetEnableGravity(0);
 

@@ -69,12 +69,13 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
 
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> BulletType;
 
 
 	//properties
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<AActor> BulletType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BoomType;
 
 
