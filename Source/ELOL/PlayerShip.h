@@ -8,6 +8,7 @@
 #include<algorithm>
 #include "Math/Vector.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/ProgressBar.h"
 #include "PlayerShip.generated.h"
 
 UCLASS()
@@ -69,6 +70,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
+
+	UPROPERTY(EditAnywhere)
+		UUserWidget* Widget;
 
 
 

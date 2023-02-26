@@ -155,6 +155,8 @@ void APlayerShip::rolling(float timedelta)
 
 void APlayerShip::InitFire()
 {
+	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
+	ProgressBar->SetPercent(0.1);
 	MeshTemp->SetRelativeLocation(FVector(200, -50, 0));
 	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
 	MeshTemp->SetRelativeLocation(FVector(200, 50, 0));
@@ -220,7 +222,7 @@ void APlayerShip::BeginPlay()
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 
-	UUserWidget* Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+	Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 
 	Widget->AddToViewport();
 }
