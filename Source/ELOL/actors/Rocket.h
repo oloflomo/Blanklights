@@ -4,31 +4,48 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SceneComponent.h"
-#include "Spawn.generated.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Rocket.generated.h"
 
 UCLASS()
-class ELOL_API ASpawn : public AActor
+class ELOL_API ARocket : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASpawn();
+	ARocket();
+
+	void Collision();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+
+
 	//components
 	UPROPERTY(EditAnywhere)
-		USceneComponent* Root;
+		UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere)
+		UCapsuleComponent* Capsule;
+
+
 
 	//properties
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> Asteroid;
+		TSubclassOf<AActor> BoomType;
+
+
 
 	//variables
+	UPROPERTY(EditAnywhere)
+		int lifespan;
 
 public:	
 	// Called every frame

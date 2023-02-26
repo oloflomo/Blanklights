@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
-#include "BlueLaserActor.generated.h"
+#include "BulletSwapActor.generated.h"
 
 UCLASS()
-class ELOL_API ABlueLaserActor : public AActor
+class ELOL_API ABulletSwapActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ABlueLaserActor();
+	ABulletSwapActor();
 
 protected:
 	// Called when the game starts or when spawned

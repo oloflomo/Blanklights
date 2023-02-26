@@ -219,6 +219,10 @@ void APlayerShip::BeginPlay()
 	Mesh1->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
+
+	UUserWidget* Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+
+	Widget->AddToViewport();
 }
 
 

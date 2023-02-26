@@ -3,24 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Bop.h"
-#include "Components/StaticMeshComponent.h"
-#include<algorithm>
-#include "Math/Vector.h"
-#include "Components/CapsuleComponent.h"
-#include "workshopPawn.generated.h"
+#include "GameFramework/Pawn.h"
+#include "Camera/CameraComponent.h"
+#include "invpawn.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class ELOL_API AworkshopPawn : public ABop
+class ELOL_API Ainvpawn : public APawn
 {
 	GENERATED_BODY()
-	
+
 public:
 	// Sets default values for this pawn's properties
-	AworkshopPawn();
+	Ainvpawn();
 
 	// Player Actions
 	void Xmove(float movementdelta);
@@ -34,27 +28,17 @@ public:
 
 protected:
 
-	//Called when the game starts or when spawned
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	//components
 	UPROPERTY(EditAnywhere)
-		USceneComponent* MeshRoot;
+		UCameraComponent* Cam;
 
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh;
-
-	UPROPERTY(EditAnywhere)
-		USceneComponent* MeshTemp;
-
-	//properties
-
-	//variables
-
-public:
-
-	//overrides
+public:	
+	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

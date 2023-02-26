@@ -7,6 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include<algorithm>
 #include "Math/Vector.h"
+#include "Blueprint/UserWidget.h"
 #include "PlayerShip.generated.h"
 
 UCLASS()
@@ -69,14 +70,17 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
 
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> BulletType;
 
 
 	//properties
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<AActor> BulletType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BoomType;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> WidgetClass;
 
 	//variables
 	UPROPERTY(EditAnywhere)

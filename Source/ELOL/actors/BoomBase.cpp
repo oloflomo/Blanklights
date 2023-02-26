@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Boom.h"
+#include "BoomBase.h"
 
 // Sets default values
-ABoom::ABoom()
+ABoomBase::ABoomBase()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
@@ -21,7 +21,7 @@ ABoom::ABoom()
 }
 
 // Called when the game starts or when spawned
-void ABoom::BeginPlay()
+void ABoomBase::BeginPlay()
 {
 	Super::BeginPlay();
 	lifespan = 10;
@@ -29,7 +29,7 @@ void ABoom::BeginPlay()
 }
 
 // Called every frame
-void ABoom::Tick(float DeltaTime)
+void ABoomBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	lifespan--;
@@ -38,3 +38,4 @@ void ABoom::Tick(float DeltaTime)
 		GetWorld()->DestroyActor(this);
 	}
 }
+

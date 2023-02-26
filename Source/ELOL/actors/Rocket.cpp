@@ -1,17 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LASER.h"
+#include "Rocket.h"
 
 // Sets default values
-ALASER::ALASER()
+ARocket::ARocket()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh1"));
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh->SetWorldRotation(FRotator(-90, 0, 0));
 	Mesh->SetSimulatePhysics(true);
@@ -27,21 +27,21 @@ ALASER::ALASER()
 }
 
 // Called when the game starts or when spawned
-void ALASER::BeginPlay()
+void ARocket::BeginPlay()
 {
 	Super::BeginPlay();
-	lifespan = 100;
-	Mesh->OnComponentHit.AddDynamic(this, &ALASER::OnHit);
-	Mesh->SetPhysicsLinearVelocity(10000 * Mesh->GetUpVector());
+	lifespan = 400;
+	Mesh->OnComponentHit.AddDynamic(this, &ARocket::OnHit);
+	Mesh->SetPhysicsLinearVelocity(100 * Mesh->GetUpVector());
 }
 
-void ALASER::Collision()
+void ARocket::Collision()
 {
 	GetWorld()->SpawnActor<AActor>(BoomType, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
 	GetWorld()->DestroyActor(this);
 }
 
-void ALASER::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
@@ -54,14 +54,14 @@ void ALASER::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 }
 
 // Called every frame
-void ALASER::Tick(float DeltaTime)
+void ARocket::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Mesh->AddForce(10000 * Mesh->GetUpVector());
 	lifespan--;
 	if (lifespan < 0)
 	{
-		GetWorld()->DestroyActor(this);
+		Collision();
 	}
 }
 
