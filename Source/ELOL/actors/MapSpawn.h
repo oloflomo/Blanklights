@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "BlueLaserActor.generated.h"
+#include "Components/SceneComponent.h"
+#include "MapSpawn.generated.h"
 
 UCLASS()
-class ELOL_API ABlueLaserActor : public AActor
+class ELOL_API AMapSpawn : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ABlueLaserActor();
+	AMapSpawn();
 
 protected:
 	// Called when the game starts or when spawned
@@ -22,7 +22,13 @@ protected:
 
 	//components
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh;
+		USceneComponent* Root;
+
+	//properties
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> Asteroid;
+
+	//variables
 
 public:	
 	// Called every frame

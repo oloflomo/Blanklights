@@ -7,16 +7,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SceneComponent.h"
-#include "Boom.generated.h"
+#include "BoomBase.generated.h"
 
 UCLASS()
-class ELOL_API ABoom : public AActor
+class ELOL_API ABoomBase : public AActor
 {
 	GENERATED_BODY()
-
-public:
+	
+public:	
 	// Sets default values for this actor's properties
-	ABoom();
+	ABoomBase();
 
 protected:
 	// Called when the game starts or when spawned
@@ -31,7 +31,7 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UParticleSystem* ParticleFX1;
 
-public:
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
