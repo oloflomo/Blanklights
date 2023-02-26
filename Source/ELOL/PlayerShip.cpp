@@ -57,7 +57,9 @@ APlayerShip::APlayerShip()
 
 void APlayerShip::Collision()
 {
-	durability -= 10;
+	durability -= 1;
+	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
+	ProgressBar->SetPercent(durability/double(101));
 }
 
 void APlayerShip::Destruction()
@@ -155,8 +157,6 @@ void APlayerShip::rolling(float timedelta)
 
 void APlayerShip::InitFire()
 {
-	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
-	ProgressBar->SetPercent(0.1);
 	MeshTemp->SetRelativeLocation(FVector(200, -50, 0));
 	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
 	MeshTemp->SetRelativeLocation(FVector(200, 50, 0));
@@ -217,7 +217,7 @@ void APlayerShip::Tick(float DeltaTime)
 void APlayerShip::BeginPlay()
 {
 	Super::BeginPlay();
-	durability = 30;
+	durability = 100;
 	Mesh1->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShip::OnHit);

@@ -88,7 +88,7 @@ protected:
 
 	//variables
 	UPROPERTY(EditAnywhere)
-		int durability;
+		double durability;
 
 public:
 
