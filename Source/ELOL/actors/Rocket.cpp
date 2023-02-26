@@ -38,6 +38,13 @@ void ARocket::BeginPlay()
 void ARocket::Collision()
 {
 	GetWorld()->SpawnActor<AActor>(BoomType, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
+	//explode
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
+	for (AActor* i : FoundActors) {
+		APlayerShip* Ship = Cast<APlayerShip>(i);
+		Ship->Collision();
+	}
 	GetWorld()->DestroyActor(this);
 }
 
