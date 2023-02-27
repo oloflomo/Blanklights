@@ -28,6 +28,9 @@ public:
 	void InitFire();
 	virtual void CameraToggleSwap();
 
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* Mesh1;
+
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -43,7 +46,7 @@ public:
 
 	//events
 
-	void Collision();
+	void Collision(double dmg);
 
 	void Destruction();
 
@@ -61,9 +64,6 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		USceneComponent* MeshTemp;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh1;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh2;

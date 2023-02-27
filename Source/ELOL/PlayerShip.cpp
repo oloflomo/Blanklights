@@ -55,9 +55,9 @@ APlayerShip::APlayerShip()
 
 //events
 
-void APlayerShip::Collision()
+void APlayerShip::Collision(double dmg = 1)
 {
-	durability -= 1;
+	durability -= dmg;
 	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
 	ProgressBar->SetPercent(durability/double(101));
 }
