@@ -26,6 +26,8 @@ public:
 	void pitching(float movementdelta);
 	void rolling(float movementdelta);
 	void InitFire();
+	void ShowInv();
+	void HideInv();
 	virtual void CameraToggleSwap();
 
 	UPROPERTY(EditAnywhere)
@@ -74,6 +76,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UUserWidget* Widget;
 
+	UPROPERTY(EditAnywhere)
+		UUserWidget* InvWidget;
+
 
 
 	//properties
@@ -85,6 +90,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> WidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> InvWidgetClass;
 
 	//variables
 	UPROPERTY(EditAnywhere)

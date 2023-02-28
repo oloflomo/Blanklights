@@ -164,6 +164,16 @@ void APlayerShip::InitFire()
 	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
 }
 
+void APlayerShip::ShowInv()
+{
+	InvWidget->AddToViewport();
+}
+
+void APlayerShip::HideInv()
+{
+	InvWidget->RemoveFromViewport();
+}
+
 void APlayerShip::CameraToggleSwap()
 {
 	//if (delay > 0)
@@ -224,6 +234,8 @@ void APlayerShip::BeginPlay()
 
 	Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 
+	InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
+
 	Widget->AddToViewport();
 }
 
@@ -237,6 +249,8 @@ void APlayerShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	//register inputs
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShip::ServerInitFire);
+	PlayerInputComponent->BindAction("Inv", IE_Pressed, this, &APlayerShip::ShowInv);
+	PlayerInputComponent->BindAction("Inv", IE_Released, this, &APlayerShip::HideInv);
 	PlayerInputComponent->BindAxis("thrust", this, &APlayerShip::Serverthrusting);
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShip::Serverpitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShip::Serveryawing);
