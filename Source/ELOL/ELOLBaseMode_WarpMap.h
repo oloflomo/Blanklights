@@ -12,5 +12,4 @@ class ELOL_API AELOLBaseMode_WarpMap : public AELOLBaseMode
 {
 	GENERATED_BODY()
 
-	AELOLBaseMode_WarpMap();
 };

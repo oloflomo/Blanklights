@@ -42,8 +42,8 @@ void ARocket::Collision()
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
 	for (AActor* i : FoundActors) {
-		APlayerShip* Ship = Cast<APlayerShip>(i);
-		FVector vec = Ship->Mesh1->GetComponentLocation() - this->GetActorLocation();
+		APlayerShipBase* Ship = Cast<APlayerShipBase>(i);
+		FVector vec = Ship->GetActorLocation() - this->GetActorLocation();
 		double dist = vec.Length();
 		if (dist < 10000)
 		{

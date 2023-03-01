@@ -7,7 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "ELOL/PlayerShip.h"
+#include "ELOL/Pawns/PlayerShipBase.h"
 #include "Rocket.generated.h"
 
 UCLASS()
@@ -44,7 +44,7 @@ protected:
 		TSubclassOf<AActor> BoomType;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<APlayerShip> PlayerShipClass;
+		TSubclassOf<APlayerShipBase> PlayerShipClass;
 
 
 	//variables
