@@ -15,11 +15,9 @@ ABop::ABop()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CameraRoot"));
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	CameraTemp = CreateDefaultSubobject<USceneComponent>(TEXT("CameraTemp"));
 
 	//Camera setup
 	Camera->SetupAttachment(CameraRoot);
-	CameraTemp->SetupAttachment(Camera);
 	CameraRoot->SetupAttachment(Root);
 	Root->SetWorldRotation(FRotator(0, 0, 0));
 	Root->SetWorldLocation(GetActorLocation());
@@ -27,8 +25,6 @@ ABop::ABop()
 	CameraRoot->SetRelativeRotation(FRotator(0, 0, 0));
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
 	Camera->SetRelativeRotation(FRotator(0, 0, 0));
-	CameraTemp->SetRelativeLocation(FVector(0, 0, 0));
-	CameraTemp->SetRelativeRotation(FRotator(0, 0, 0));
 
 	CameraRadius = 200;
 	Toggle = 0;
@@ -41,9 +37,7 @@ void ABop::camlong(float movementdelta)
 {
 	if (Toggle == 0)
 	{
-		CameraTemp->SetRelativeRotation(FRotator(movementdelta, 0, 0));
-		FRotator NewRotation = CameraTemp->GetComponentRotation();
-		Camera->SetRelativeRotation(NewRotation);
+		Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
 		FVector Location = Camera->GetRelativeRotation().Vector();
 		Camera->SetRelativeLocation(Location * -CameraRadius);
 	}
@@ -53,9 +47,7 @@ void ABop::camlat(float movementdelta)
 {
 	if (Toggle == 0)
 	{
-		CameraTemp->SetRelativeRotation(FRotator(0, movementdelta, 0));
-		FRotator NewRotation = CameraTemp->GetComponentRotation();
-		Camera->SetRelativeRotation(NewRotation);
+		Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
 		FVector Location = Camera->GetRelativeRotation().Vector();
 		Camera->SetRelativeLocation(Location * -CameraRadius);
 	}
