@@ -43,11 +43,6 @@ APlayerShip::APlayerShip()
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetSimulatePhysics(false);
 
-	MeshTemp = CreateDefaultSubobject<USceneComponent>(TEXT("MeshTemp"));
-	MeshTemp->SetupAttachment(Mesh1);
-	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
-	MeshTemp->SetRelativeRotation(FRotator(0, 0, 0));
-	
 	RootComponent = Root;
 }
 
@@ -157,11 +152,8 @@ void APlayerShip::rolling(float timedelta)
 
 void APlayerShip::InitFire()
 {
-	MeshTemp->SetRelativeLocation(FVector(200, -50, 0));
-	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
-	MeshTemp->SetRelativeLocation(FVector(200, 50, 0));
-	GetWorld()->SpawnActor<AActor>(BulletType, MeshTemp->GetComponentLocation(), Mesh1->GetComponentRotation());
-	MeshTemp->SetRelativeLocation(FVector(0, 0, 0));
+	GetWorld()->SpawnActor<AActor>(BulletType, Mesh1->GetComponentLocation() + FVector(200, -50, 0), Mesh1->GetComponentRotation());
+	GetWorld()->SpawnActor<AActor>(BulletType, Mesh1->GetComponentLocation() + FVector(200, 50, 0), Mesh1->GetComponentRotation());
 }
 
 void APlayerShip::ShowInv()
