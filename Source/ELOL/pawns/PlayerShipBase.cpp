@@ -66,8 +66,8 @@ void APlayerShipBase::rolling(float timedelta)
 
 void APlayerShipBase::InitFire()
 {
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(200, -50, 0), GetActorRotation());
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(200, 50, 0), GetActorRotation());
+	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
+	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
 }
 
 void APlayerShipBase::ShowInv()
