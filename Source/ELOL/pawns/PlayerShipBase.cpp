@@ -72,11 +72,27 @@ void APlayerShipBase::InitFire()
 
 void APlayerShipBase::ShowInv()
 {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = true;
+		PC->bEnableClickEvents = true;
+		PC->bEnableMouseOverEvents = true;
+	}
+
 	InvWidget->AddToViewport();
 }
 
 void APlayerShipBase::HideInv()
 {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = false;
+	}
+
 	InvWidget->RemoveFromViewport();
 }
 
