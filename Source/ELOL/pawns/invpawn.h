@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
+#include "Components/ProgressBar.h"
+#include "ELOL/ELOLGameInstance.h"
 #include "invpawn.generated.h"
 
 UCLASS()

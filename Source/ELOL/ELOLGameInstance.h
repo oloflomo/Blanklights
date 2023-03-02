@@ -19,11 +19,10 @@ public:
 	UELOLGameInstance();
 
 	//variables
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double LaserCnt;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double RocketCnt;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double BlueLaserCnt;
-	
 };

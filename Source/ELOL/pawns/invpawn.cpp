@@ -65,6 +65,17 @@ void Ainvpawn::ShowEle()
 		PC->bEnableMouseOverEvents = true;
 	}
 
+	UGameInstance* GameInst = GetGameInstance();
+
+	UELOLGameInstance* ELOLInst = Cast<UELOLGameInstance>(GameInst);
+
+	UProgressBar* ProgressBar1 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_38")));
+	ProgressBar1->SetPercent(ELOLInst->LaserCnt/100);
+	UProgressBar* ProgressBar2 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_85")));
+	ProgressBar2->SetPercent(ELOLInst->BlueLaserCnt/100);
+	UProgressBar* ProgressBar3 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_129")));
+	ProgressBar3->SetPercent(ELOLInst->RocketCnt/100);
+
 	EleWidget->AddToViewport();
 }
 
