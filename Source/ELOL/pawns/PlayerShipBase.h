@@ -28,6 +28,8 @@ public:
 	void InitFire();
 	void ShowInv();
 	void HideInv();
+	void ShowLoot();
+	void HideLoot();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -68,6 +70,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UUserWidget* InvWidget;
 
+	UPROPERTY(EditAnywhere)
+		UUserWidget* LootWidget;
+
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BulletType;
@@ -80,6 +85,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> InvWidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> LootWidgetClass;
 
 	//variables
 	UPROPERTY(EditAnywhere)

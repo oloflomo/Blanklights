@@ -96,6 +96,32 @@ void APlayerShipBase::HideInv()
 	InvWidget->RemoveFromViewport();
 }
 
+void APlayerShipBase::ShowLoot()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = true;
+		PC->bEnableClickEvents = true;
+		PC->bEnableMouseOverEvents = true;
+	}
+
+	LootWidget->AddToViewport();
+}
+
+void APlayerShipBase::HideLoot()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = false;
+	}
+
+	LootWidget->RemoveFromViewport();
+}
+
 //server
 
 
@@ -193,6 +219,8 @@ void APlayerShipBase::BeginPlay()
 	Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 
 	InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
+
+	LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
 
 	Widget->AddToViewport();
 }
