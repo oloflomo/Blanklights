@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
+#include "Components/ProgressBar.h"
+#include "ELOL/ELOLGameInstance.h"
 #include "invpawn.generated.h"
 
 UCLASS()
@@ -19,6 +22,8 @@ public:
 	// Player Actions
 	void Xmove(float movementdelta);
 	void Ymove(float movementdelta);
+	void ShowEle();
+	void HideEle();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -34,6 +39,13 @@ protected:
 	//components
 	UPROPERTY(EditAnywhere)
 		UCameraComponent* Cam;
+
+	UPROPERTY(EditAnywhere)
+		UUserWidget* EleWidget;
+
+	//properties
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> EleWidgetClass;
 
 public:	
 	// Called every frame

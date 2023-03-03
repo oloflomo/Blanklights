@@ -54,9 +54,48 @@ void Ainvpawn::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void Ainvpawn::ShowEle()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = true;
+		PC->bEnableClickEvents = true;
+		PC->bEnableMouseOverEvents = true;
+	}
+
+	UGameInstance* GameInst = GetGameInstance();
+
+	UELOLGameInstance* ELOLInst = Cast<UELOLGameInstance>(GameInst);
+
+	UProgressBar* ProgressBar1 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_38")));
+	ProgressBar1->SetPercent(ELOLInst->LaserCnt/100);
+	UProgressBar* ProgressBar2 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_85")));
+	ProgressBar2->SetPercent(ELOLInst->BlueLaserCnt/100);
+	UProgressBar* ProgressBar3 = dynamic_cast<UProgressBar*>(EleWidget->GetWidgetFromName(FName("ProgressBar_129")));
+	ProgressBar3->SetPercent(ELOLInst->RocketCnt/100);
+
+	EleWidget->AddToViewport();
+}
+
+void Ainvpawn::HideEle()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+
+	if (PC)
+	{
+		PC->bShowMouseCursor = false;
+	}
+
+	EleWidget->RemoveFromViewport();
+}
+
 void Ainvpawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	EleWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), EleWidgetClass);
 }
 
 // Called to bind functionality to input
@@ -67,4 +106,6 @@ void Ainvpawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	//register inputs
 	PlayerInputComponent->BindAxis("pitch", this, &Ainvpawn::ServerXmove);
 	PlayerInputComponent->BindAxis("yaw", this, &Ainvpawn::ServerYmove);
+	PlayerInputComponent->BindAction("Inv", IE_Pressed, this, &Ainvpawn::ShowEle);
+	PlayerInputComponent->BindAction("Inv", IE_Released, this, &Ainvpawn::HideEle);
 }

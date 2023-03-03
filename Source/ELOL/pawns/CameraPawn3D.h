@@ -6,35 +6,30 @@
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SceneComponent.h"
-#include "Bop.generated.h"
+#include "Components/StaticMeshComponent.h"
+#include "Math/Vector.h"
+#include "CameraPawn3D.generated.h"
 
 UCLASS()
-class ELOL_API ABop : public APawn
+class ELOL_API ACameraPawn3D : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	ABop();
+	ACameraPawn3D();
 
 	//cam movement
 	void camlong(float movementdelta);
 	void camlat(float movementdelta);
 	void CameraRadiusSwap(float movementdelta);
-	virtual void CameraToggleSwap();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
-		USceneComponent* Root;
-
-	UPROPERTY(EditAnywhere)
-		USceneComponent* CameraRoot;
-
-	UPROPERTY(EditAnywhere)
-		USceneComponent* CameraTemp;
+		UStaticMeshComponent* Root;
 
 	//main camera
 	UPROPERTY(EditAnywhere)
@@ -42,12 +37,6 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 		double CameraRadius;
-
-	UPROPERTY(VisibleAnywhere)
-		bool Toggle;
-
-	UPROPERTY(VisibleAnywhere)
-		double delay;
 
 public:	
 	// Called every frame

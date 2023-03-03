@@ -3,3 +3,12 @@
 
 #include "ELOLGameInstance.h"
 
+// Sets default values
+UELOLGameInstance::UELOLGameInstance()
+{
+
+	//Create components
+	LaserCnt = 0;
+	RocketCnt = 0;
+	BlueLaserCnt = 0;
+}

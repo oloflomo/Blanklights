@@ -3,21 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Bop.h"
-#include "Components/StaticMeshComponent.h"
-#include<algorithm>
-#include "Math/Vector.h"
+#include "CameraPawn3D.h"
 #include "Blueprint/UserWidget.h"
-#include "PlayerShip.generated.h"
+#include "Components/ProgressBar.h"
+#include "PlayerShipBase.generated.h"
 
+/**
+ *
+ */
 UCLASS()
-class ELOL_API APlayerShip : public ABop
+class ELOL_API APlayerShipBase : public ACameraPawn3D
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	APlayerShip();
+	APlayerShipBase(); // ?E?
 
 	// Player Actions
 	void thrusting(float movementdelta);
@@ -25,24 +26,26 @@ public:
 	void pitching(float movementdelta);
 	void rolling(float movementdelta);
 	void InitFire();
-	virtual void CameraToggleSwap();
-
+	void ShowInv();
+	void HideInv();
+	void ShowLoot();
+	void HideLoot();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
-	void Serverthrusting(float movementdelta);
+		void Serverthrusting(float movementdelta);
 	UFUNCTION(server, unreliable, WithValidation)
-	void ServerInitFire();
+		void ServerInitFire();
 	UFUNCTION(server, unreliable, WithValidation)
-	void Serverpitching(float movementdelta);
+		void Serverpitching(float movementdelta);
 	UFUNCTION(server, unreliable, WithValidation)
-	void Serveryawing(float movementdelta);
+		void Serveryawing(float movementdelta);
 	UFUNCTION(server, unreliable, WithValidation)
-	void Serverrolling(float movementdelta);
+		void Serverrolling(float movementdelta);
 
 	//events
 
-	void Collision();
+	void Collision(double dmg);
 
 	void Destruction();
 
@@ -56,21 +59,19 @@ protected:
 
 	//components
 	UPROPERTY(EditAnywhere)
-		USceneComponent* MeshRoot;
-
-	UPROPERTY(EditAnywhere)
-		USceneComponent* MeshTemp;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* Mesh1;
-
-	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh2;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
 
+	UPROPERTY(EditAnywhere)
+		UUserWidget* Widget;
 
+	UPROPERTY(EditAnywhere)
+		UUserWidget* InvWidget;
+
+	UPROPERTY(EditAnywhere)
+		UUserWidget* LootWidget;
 
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -82,9 +83,15 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> WidgetClass;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> InvWidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> LootWidgetClass;
+
 	//variables
 	UPROPERTY(EditAnywhere)
-		int durability;
+		double durability;
 
 public:
 
@@ -92,5 +99,4 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };
