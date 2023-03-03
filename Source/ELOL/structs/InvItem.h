@@ -13,5 +13,13 @@ UCLASS()
 class ELOL_API UInvItem : public UObject
 {
 	GENERATED_BODY()
-	
+
+	UInvItem();
+
+	void Init(FString type, double value);
+
+	UPROPERTY(EditAnywhere)
+		FString type;
+	UPROPERTY(EditAnywhere)
+		double value;
 };

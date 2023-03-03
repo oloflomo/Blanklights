@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "structs/InvItem.h"
 #include "ELOLGameInstance.generated.h"
 
 /**
@@ -18,6 +19,9 @@ public:
 	// Sets default values for this pawn's properties
 	UELOLGameInstance();
 
+	//events
+	void RollItem();
+
 	//variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double LaserCnt;
@@ -25,4 +29,7 @@ public:
 		double RocketCnt;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double BlueLaserCnt;
+
+	UPROPERTY()
+		TArray<UInvItem*> Items;
 };

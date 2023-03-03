@@ -6,9 +6,14 @@
 // Sets default values
 UELOLGameInstance::UELOLGameInstance()
 {
-
 	//Create components
 	LaserCnt = 0;
 	RocketCnt = 0;
 	BlueLaserCnt = 0;
+}
+
+void UELOLGameInstance::RollItem()
+{
+	UInvItem* NewItem = NewObject<UInvItem>(UInvItem::StaticClass());
+	Items.Add(NewItem);
 }
