@@ -107,6 +107,12 @@ void APlayerShipBase::ShowLoot()
 		PC->bEnableMouseOverEvents = true;
 	}
 
+	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
+
+	GameInst->RollItem();
+	GameInst->RollItem();
+	GameInst->RollItem();
+
 	LootWidget->AddToViewport();
 }
 
@@ -118,12 +124,6 @@ void APlayerShipBase::HideLoot()
 	{
 		PC->bShowMouseCursor = false;
 	}
-
-	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
-
-	GameInst->RollItem();
-	GameInst->RollItem();
-	GameInst->RollItem();
 
 	LootWidget->RemoveFromViewport();
 }
