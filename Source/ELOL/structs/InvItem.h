@@ -9,17 +9,18 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ELOL_API UInvItem : public UObject
 {
 	GENERATED_BODY()
 
+public:
 	UInvItem();
 
 	void Init(FString type, double value);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString type;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		double value;
 };

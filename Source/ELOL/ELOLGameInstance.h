@@ -30,6 +30,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double BlueLaserCnt;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TArray<UInvItem*> Items;
 };
