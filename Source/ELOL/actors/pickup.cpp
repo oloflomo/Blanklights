@@ -23,13 +23,6 @@ Apickup::Apickup()
 	RootComponent = Mesh;
 }
 
-// Called when the game starts or when spawned
-void Apickup::BeginPlay()
-{
-	Super::BeginPlay();
-	Mesh->OnComponentHit.AddDynamic(this, &Apickup::OnHit);
-}
-
 void Apickup::Pick()
 {
 	//pick
@@ -46,15 +39,53 @@ void Apickup::Pick()
 	}
 }
 
-void Apickup::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void Apickup::NoPick()
+{
+	//nopick
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
+	for (AActor* i : FoundActors) {
+		APlayerShipBase* Ship = Cast<APlayerShipBase>(i);
+		FVector vec = Ship->GetActorLocation() - this->GetActorLocation();
+		double dist = vec.Length();
+		if (dist < 10000)
+		{
+			Ship->HideLoot();
+		}
+	}
+}
+
+// Called when the game starts or when spawned
+void Apickup::BeginPlay()
+{
+	Super::BeginPlay();
+	Capsule->OnComponentBeginOverlap.AddDynamic(this, &Apickup::OverlapBegin);
+	Capsule->OnComponentEndOverlap.AddDynamic(this, &Apickup::OverlapEnd);
+}
+
+void Apickup::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HIT"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap"));
 		}
 		Pick();
+	}
+}
+
+void Apickup::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap no"));
+		}
+		NoPick();
 	}
 }
 
