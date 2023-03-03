@@ -6,6 +6,7 @@
 #include "CameraPawn3D.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/ProgressBar.h"
+#include "ELOL/ELOLGameInstance.h"
 #include "PlayerShipBase.generated.h"
 
 /**

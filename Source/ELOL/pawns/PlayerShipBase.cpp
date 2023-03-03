@@ -119,6 +119,12 @@ void APlayerShipBase::HideLoot()
 		PC->bShowMouseCursor = false;
 	}
 
+	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
+
+	GameInst->RollItem();
+	GameInst->RollItem();
+	GameInst->RollItem();
+
 	LootWidget->RemoveFromViewport();
 }
 
