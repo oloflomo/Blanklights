@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "ELOL/Pawns/PlayerShipBase.h"
 #include "pickup.generated.h"
@@ -30,6 +31,9 @@ protected:
 	//components
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere)
+		UCapsuleComponent* Capsule;
 
 	//properties
 	UPROPERTY(EditAnywhere)

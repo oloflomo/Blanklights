@@ -15,6 +15,11 @@ Apickup::Apickup()
 	Mesh->SetWorldRotation(FRotator(-90, 0, 0));
 	Mesh->SetSimulatePhysics(false);
 
+	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
+	Capsule->SetupAttachment(Mesh);
+	Capsule->InitCapsuleSize(100000.f, 100000.f);
+	
+
 	RootComponent = Mesh;
 }
 
