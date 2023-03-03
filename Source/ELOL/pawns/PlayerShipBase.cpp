@@ -76,7 +76,6 @@ void APlayerShipBase::ShowInv()
 
 	if (PC)
 	{
-		PC->bShowMouseCursor = true;
 		PC->bEnableClickEvents = true;
 		PC->bEnableMouseOverEvents = true;
 	}
@@ -88,11 +87,6 @@ void APlayerShipBase::HideInv()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
-	if (PC)
-	{
-		PC->bShowMouseCursor = false;
-	}
-
 	InvWidget->RemoveFromViewport();
 }
 
@@ -102,7 +96,6 @@ void APlayerShipBase::ShowLoot()
 
 	if (PC)
 	{
-		PC->bShowMouseCursor = true;
 		PC->bEnableClickEvents = true;
 		PC->bEnableMouseOverEvents = true;
 	}
@@ -119,11 +112,6 @@ void APlayerShipBase::ShowLoot()
 void APlayerShipBase::HideLoot()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
-
-	if (PC)
-	{
-		PC->bShowMouseCursor = false;
-	}
 
 	LootWidget->RemoveFromViewport();
 }
