@@ -23,36 +23,24 @@ Apickup::Apickup()
 	RootComponent = Mesh;
 }
 
-void Apickup::Pick()
+void Apickup::Pick(AActor* other)
 {
 	//pick
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
-	for (AActor* i : FoundActors) {
-		APlayerShipBase* Ship = Cast<APlayerShipBase>(i);
-		FVector vec = Ship->GetActorLocation() - this->GetActorLocation();
-		double dist = vec.Length();
-		if (dist < 1000)
-		{
-			Ship->ShowLoot();
-		}
-	}
+	//TArray<AActor*> FoundActors;
+	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
+	//for (AActor* i : FoundActors) {
+	APlayerShipBase* Ship = Cast<APlayerShipBase>(other);
+	Ship->ShowLoot();
 }
 
-void Apickup::NoPick()
+void Apickup::NoPick(AActor* other)
 {
 	//nopick
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
-	for (AActor* i : FoundActors) {
-		APlayerShipBase* Ship = Cast<APlayerShipBase>(i);
-		FVector vec = Ship->GetActorLocation() - this->GetActorLocation();
-		double dist = vec.Length();
-		if (dist < 10000)
-		{
-			Ship->HideLoot();
-		}
-	}
+	//TArray<AActor*> FoundActors;
+	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
+	//for (AActor* i : FoundActors) {
+	APlayerShipBase* Ship = Cast<APlayerShipBase>(other);
+	Ship->HideLoot();
 }
 
 // Called when the game starts or when spawned
@@ -72,7 +60,7 @@ void Apickup::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap"));
 		}
-		Pick();
+		Pick(OtherActor);
 	}
 }
 
@@ -85,7 +73,7 @@ void Apickup::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* Other
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap no"));
 		}
-		NoPick();
+		NoPick(OtherActor);
 	}
 }
 
