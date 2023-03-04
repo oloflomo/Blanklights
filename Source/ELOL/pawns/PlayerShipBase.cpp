@@ -169,7 +169,7 @@ bool APlayerShipBase::Serverrolling_Validate(float timedelta)
 void APlayerShipBase::Collision(double dmg = 1)
 {
 	durability -= dmg;
-	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
+	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
 	ProgressBar->SetPercent(durability / double(101));
 }
 
@@ -236,3 +236,10 @@ void APlayerShipBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShipBase::Serveryawing);
 	PlayerInputComponent->BindAxis("roll", this, &APlayerShipBase::Serverrolling);
 }
+
+/*UnrealEditor_UMG
+UnrealEditor_ELOL!APlayerShipBase::Collision() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\pawns\PlayerShipBase.cpp:174]
+UnrealEditor_ELOL!ARocket::Collision() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\actors\Rocket.cpp:44]
+UnrealEditor_ELOL!ARocket::OnHit() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\actors\Rocket.cpp:66]
+UnrealEditor_ELOL!ARocket::execOnHit() [C:\Users\strza\Desktop\electronics moba data\project files\game\Intermediate\Build\Win64\UnrealEditor\Inc\ELOL\UHT\Rocket.gen.cpp:37]
+UnrealEditor_CoreUObject*/
