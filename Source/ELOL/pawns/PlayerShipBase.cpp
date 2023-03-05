@@ -66,28 +66,33 @@ void APlayerShipBase::rolling(float timedelta)
 
 void APlayerShipBase::InitFire()
 {
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
+	if (BulletType)
+	{
+		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
+		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
+	}
 }
 
 void APlayerShipBase::ShowInv()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
-
 	if (PC)
 	{
 		PC->bEnableClickEvents = true;
 		PC->bEnableMouseOverEvents = true;
 	}
-
-	InvWidget->AddToViewport();
+	if (InvWidget)
+	{
+		InvWidget->AddToViewport();
+	}
 }
 
 void APlayerShipBase::HideInv()
 {
-	APlayerController* PC = Cast<APlayerController>(GetController());
-
-	InvWidget->RemoveFromViewport();
+	if (InvWidget)
+	{
+		InvWidget->RemoveFromViewport();
+	}
 }
 
 void APlayerShipBase::ShowLoot()
@@ -102,18 +107,25 @@ void APlayerShipBase::ShowLoot()
 
 	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
 
-	GameInst->RollItem();
-	GameInst->RollItem();
-	GameInst->RollItem();
+	if (GameInst)
+	{
+		GameInst->RollItem();
+		GameInst->RollItem();
+		GameInst->RollItem();
+	}
 
-	LootWidget->AddToViewport();
+	if (LootWidget)
+	{
+		LootWidget->AddToViewport();
+	}
 }
 
 void APlayerShipBase::HideLoot()
 {
-	APlayerController* PC = Cast<APlayerController>(GetController());
-
-	LootWidget->RemoveFromViewport();
+	if (LootWidget)
+	{
+		LootWidget->RemoveFromViewport();
+	}
 }
 
 //server
@@ -170,12 +182,18 @@ void APlayerShipBase::Collision(double dmg = 1)
 {
 	durability -= dmg;
 	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
-	ProgressBar->SetPercent(durability / double(101));
+	if (ProgressBar)
+	{
+		ProgressBar->SetPercent(durability / double(101));
+	}
 }
 
 void APlayerShipBase::Destruction()
 {
-	GetWorld()->SpawnActor<AActor>(BoomType, GetActorLocation(), GetActorRotation());
+	if (BoomType)
+	{
+		GetWorld()->SpawnActor<AActor>(BoomType, GetActorLocation(), GetActorRotation());
+	}
 	GetWorld()->DestroyActor(this);
 }
 
@@ -210,13 +228,21 @@ void APlayerShipBase::BeginPlay()
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 
-	Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+	if (Widget)
+	{
+		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+		Widget->AddToViewport();
+	}
 
-	InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
+	if (InvWidget)
+	{
+		InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
+	}
 
-	LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
-
-	Widget->AddToViewport();
+	if (LootWidget)
+	{
+		LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
+	}
 }
 
 
