@@ -29,8 +29,11 @@ void Apickup::Pick(AActor* other)
 	//TArray<AActor*> FoundActors;
 	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
 	//for (AActor* i : FoundActors) {
-	APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			//E//
-	Ship->ShowLoot();
+	if (other->IsA(APlayerShipBase::StaticClass()))
+	{
+		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
+		Ship->ShowLoot();
+	}
 }
 
 void Apickup::NoPick(AActor* other)
@@ -39,8 +42,11 @@ void Apickup::NoPick(AActor* other)
 	//TArray<AActor*> FoundActors;
 	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerShipClass, FoundActors);
 	//for (AActor* i : FoundActors) {
-	APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			//E//
-	Ship->HideLoot(); 
+	if (other->IsA(APlayerShipBase::StaticClass()))
+	{
+		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
+		Ship->HideLoot();
+	}
 }
 
 // Called when the game starts or when spawned
