@@ -17,6 +17,9 @@ public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
 
+	//events
+	void RollItem();
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 

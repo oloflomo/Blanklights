@@ -10,6 +10,15 @@ UInventoryComponent::UInventoryComponent()
 	// off to improve performance if you don't need them.
 }
 
+void UInventoryComponent::RollItem()
+{
+	UInvItem* NewItem = NewObject<UInvItem>(UInvItem::StaticClass());
+	Items.Add(NewItem);
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+	}
+}
 
 // Called when the game starts
 void UInventoryComponent::BeginPlay()

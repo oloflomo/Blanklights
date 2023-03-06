@@ -11,13 +11,3 @@ UELOLGameInstance::UELOLGameInstance()
 	RocketCnt = 0;
 	BlueLaserCnt = 0;
 }
-
-void UELOLGameInstance::RollItem()
-{
-	UInvItem* NewItem = NewObject<UInvItem>(UInvItem::StaticClass());
-	Items.Add(NewItem);
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
-	}
-}

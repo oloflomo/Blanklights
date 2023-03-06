@@ -107,14 +107,9 @@ void APlayerShipBase::ShowLoot()
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
-
-	if (GameInst)
-	{
-		GameInst->RollItem();
-		GameInst->RollItem();
-		GameInst->RollItem();
-	}
+	Inventory->RollItem();
+	Inventory->RollItem();
+	Inventory->RollItem();
 
 	if (LootWidget)
 	{
