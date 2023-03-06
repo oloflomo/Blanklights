@@ -7,6 +7,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/ProgressBar.h"
 #include "ELOL/ELOLGameInstance.h"
+#include "ELOL/components/InventoryComponent.h"
 #include "PlayerShipBase.generated.h"
 
 /**
@@ -64,6 +65,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
+
+	UPROPERTY(EditAnywhere)
+		UInventoryComponent* Inventory;
 
 	UPROPERTY(EditAnywhere)
 		UUserWidget* Widget;

@@ -34,6 +34,8 @@ APlayerShipBase::APlayerShipBase()
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetSimulatePhysics(false);
 
+	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+
 	RootComponent = Root;
 }
 

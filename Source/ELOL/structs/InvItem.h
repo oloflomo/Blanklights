@@ -21,6 +21,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString type;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		double value;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UInventoryComponent* OwningInventory;
 };
