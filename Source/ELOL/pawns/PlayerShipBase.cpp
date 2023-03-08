@@ -178,10 +178,13 @@ bool APlayerShipBase::Serverrolling_Validate(float timedelta)
 void APlayerShipBase::Collision(double dmg = 1)
 {
 	durability -= dmg;
-	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
-	if (ProgressBar)
+	if (Widget)
 	{
-		ProgressBar->SetPercent(durability / double(101));
+		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
+		if (ProgressBar)
+		{
+			ProgressBar->SetPercent(durability / double(101));
+		}
 	}
 }
 
