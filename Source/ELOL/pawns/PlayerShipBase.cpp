@@ -225,18 +225,18 @@ void APlayerShipBase::BeginPlay()
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 
-	if (Widget)
+	if (WidgetClass)
 	{
 		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 		Widget->AddToViewport();
 	}
 
-	if (InvWidget)
+	if (InvWidgetClass)
 	{
 		InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
 	}
 
-	if (LootWidget)
+	if (LootWidgetClass)
 	{
 		LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
 	}
