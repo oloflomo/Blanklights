@@ -66,7 +66,7 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UInventoryComponent* Inventory;
 
 	UPROPERTY(EditAnywhere)
