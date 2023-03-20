@@ -32,6 +32,7 @@ public:
 	void HideInv();
 	void ShowLoot();
 	void HideLoot();
+	void SwapEngine();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -97,6 +98,9 @@ protected:
 	//variables
 	UPROPERTY(EditAnywhere)
 		double durability;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool EngineType;
 
 public:
 

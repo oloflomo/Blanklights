@@ -36,6 +36,8 @@ APlayerShipBase::APlayerShipBase()
 
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
 
+	EngineType = 0;
+
 	RootComponent = Root;
 }
 
@@ -44,26 +46,30 @@ APlayerShipBase::APlayerShipBase()
 void APlayerShipBase::thrusting(float timedelta)
 {
 	FVector XUnit = Root->GetRelativeRotation().Vector();
-	Root->AddForce(100000 * timedelta * XUnit);
+	Root->AddForce(300000 * timedelta * XUnit);
+	if (EngineType)
+	{
+		Root->AddForce(1000000000 * timedelta * XUnit);
+	}
 	//Controller.thrusting(1);
 }
 
 void APlayerShipBase::yawing(float timedelta)
 {
 	FVector YUnit = Root->GetRightVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(1000000, 0, 0));
+	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(10000000, 0, 0));
 }
 
 void APlayerShipBase::pitching(float timedelta)
 {
 	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(1000000, 0, 0));
+	Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(10000000, 0, 0));
 }
 
 void APlayerShipBase::rolling(float timedelta)
 {
 	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 1000000));
+	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 10000000));
 }
 
 void APlayerShipBase::InitFire()
@@ -73,6 +79,11 @@ void APlayerShipBase::InitFire()
 		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
 		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
 	}
+}
+
+void APlayerShipBase::SwapEngine()
+{
+	EngineType = !EngineType;
 }
 
 void APlayerShipBase::ShowInv()
@@ -261,11 +272,5 @@ void APlayerShipBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShipBase::Serverpitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShipBase::Serveryawing);
 	PlayerInputComponent->BindAxis("roll", this, &APlayerShipBase::Serverrolling);
+	PlayerInputComponent->BindAction("EngineToggle", IE_Pressed, this, &APlayerShipBase::SwapEngine);
 }
-
-/*UnrealEditor_UMG
-UnrealEditor_ELOL!APlayerShipBase::Collision() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\pawns\PlayerShipBase.cpp:174]
-UnrealEditor_ELOL!ARocket::Collision() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\actors\Rocket.cpp:44]
-UnrealEditor_ELOL!ARocket::OnHit() [C:\Users\strza\Desktop\electronics moba data\project files\game\Source\ELOL\actors\Rocket.cpp:66]
-UnrealEditor_ELOL!ARocket::execOnHit() [C:\Users\strza\Desktop\electronics moba data\project files\game\Intermediate\Build\Win64\UnrealEditor\Inc\ELOL\UHT\Rocket.gen.cpp:37]
-UnrealEditor_CoreUObject*/
