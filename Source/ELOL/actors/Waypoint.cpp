@@ -12,6 +12,12 @@ AWaypoint::AWaypoint()
 	Mesh->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh->SetWorldRotation(FRotator(0, 0, 0));
 
+	Way_comp = CreateDefaultSubobject<UWaypointComponent>(TEXT("Wid_comp"));
+
+	Way_comp->SetupAttachment(Mesh);
+	Way_comp->SetRelativeLocation(FVector(0, 0, 0));
+	Way_comp->SetWorldRotation(FRotator(0, 0, 0));
+
 	RootComponent = Mesh;
 }
 

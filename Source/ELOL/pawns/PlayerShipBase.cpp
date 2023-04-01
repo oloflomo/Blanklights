@@ -20,6 +20,7 @@ APlayerShipBase::APlayerShipBase()
 	Root->SetSimulatePhysics(true);
 	Root->SetEnableGravity(0);
 
+
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh2->SetupAttachment(Root);
 	Mesh2->SetStaticMesh(Asset2);
@@ -35,6 +36,12 @@ APlayerShipBase::APlayerShipBase()
 	Mesh3->SetSimulatePhysics(false);
 
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+
+	/*Way_comp = CreateDefaultSubobject<UWaypointComponent>(TEXT("Wid_comp"));
+
+	Way_comp->SetupAttachment(Root);
+	Way_comp->SetRelativeLocation(FVector(0, 0, 0));
+	Way_comp->SetWorldRotation(FRotator(0, 0, 0));*/
 
 	EngineType = 0;
 

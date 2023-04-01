@@ -8,6 +8,7 @@
 #include "Components/ProgressBar.h"
 #include "ELOL/ELOLGameInstance.h"
 #include "ELOL/components/InventoryComponent.h"
+#include "ELOL/components/WaypointComponent.h"
 #include "PlayerShipBase.generated.h"
 
 /**
@@ -61,6 +62,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	//components
+
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh2;
 
@@ -69,6 +71,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UInventoryComponent* Inventory;
+
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	//	UWaypointComponent* Way_comp;
 
 	UPROPERTY(EditAnywhere)
 		UUserWidget* Widget;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "ELOL/components/WaypointComponent.h"
 #include "Waypoint.generated.h"
 
 UCLASS()
@@ -23,6 +24,9 @@ protected:
 	//components
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UWaypointComponent* Way_comp;
 
 public:	
 	// Called every frame
