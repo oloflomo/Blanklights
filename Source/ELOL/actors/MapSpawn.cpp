@@ -37,7 +37,7 @@ void AMapSpawn::BeginPlay()
 		int x_component = FMath::RandRange(int(-510000), int(-500000));
 		int y_component = FMath::RandRange(int(-510000), int(-500000));
 		int z_component = FMath::RandRange(int(-510000), int(-500000));
-		int r = FMath::RandRange(int(1), int(1000));
+		int r = FMath::RandRange(int(1), int(100));
 		if (i == 0)
 			GetWorld()->SpawnActor<AActor>(WAYPNT, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 		else if (r < 90)
