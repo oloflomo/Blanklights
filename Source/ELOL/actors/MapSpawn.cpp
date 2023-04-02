@@ -21,38 +21,58 @@ void AMapSpawn::BeginPlay()
 	Super::BeginPlay();
 	for (int i = 0; i < 50; i++)
 	{
-		int x_component = FMath::RandRange(int(100000), int(110000));
-		int y_component = FMath::RandRange(int(100000), int(110000));
-		int z_component = FMath::RandRange(int(100000), int(110000));
-		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		int x_component = FMath::RandRange(int(20000), int(40000));
+		int y_component = FMath::RandRange(int(20000), int(40000));
+		int z_component = FMath::RandRange(int(20000), int(40000));
+		int r = FMath::RandRange(int(1), int(100));
+		if (r < 90)
+			GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		else
+			GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 	for (int i = 0; i < 50; i++)
 	{
 		int x_component = FMath::RandRange(int(-510000), int(-500000));
 		int y_component = FMath::RandRange(int(-510000), int(-500000));
 		int z_component = FMath::RandRange(int(-510000), int(-500000));
-		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		int r = FMath::RandRange(int(1), int(1000));
+		if (r < 90)
+			GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		else
+			GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 	for (int i = 0; i < 50; i++)
 	{
 		int x_component = FMath::RandRange(int(-1510000), int(-1500000));
 		int y_component = FMath::RandRange(int(-1510000), int(-1500000));
 		int z_component = FMath::RandRange(int(-510000), int(-500000));
-		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		int r = FMath::RandRange(int(1), int(1000));
+		if (r < 90)
+			GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		else
+			GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 	for (int i = 0; i < 50; i++)
 	{
 		int x_component = FMath::RandRange(int(-1510000), int(-1500000));
 		int y_component = FMath::RandRange(int(-1510000), int(-1500000));
 		int z_component = FMath::RandRange(int(-1510000), int(-1500000));
-		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		int r = FMath::RandRange(int(1), int(1000));
+		if (r < 90)
+			GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		else
+			GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 	for (int i = 0; i < 50; i++)
 	{
 		int x_component = FMath::RandRange(int(-1510000), int(-1500000));
 		int y_component = FMath::RandRange(int(-3510000), int(-3500000));
 		int z_component = FMath::RandRange(int(-2510000), int(-2500000));
-		GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		int r = FMath::RandRange(int(1), int(1000));
+		if (r < 90)
+			GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+		else
+			GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
 	}
 }
 

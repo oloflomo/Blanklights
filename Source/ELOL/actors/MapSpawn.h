@@ -28,6 +28,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> Asteroid;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> Pick;
+
 	//variables
 
 public:	
