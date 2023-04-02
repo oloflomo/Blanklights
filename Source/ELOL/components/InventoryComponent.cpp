@@ -16,12 +16,16 @@ void UInventoryComponent::RollItem()
 	Items.Add(NewItem);
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAA"));
 	}
+	OnInventoryUpdated.Broadcast();
 }
 
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	RollItem();
+	RollItem();
+	RollItem();
 }

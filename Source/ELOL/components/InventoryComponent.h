@@ -7,6 +7,7 @@
 #include "ELOL/structs/InvItem.h"
 #include "InventoryComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ELOL_API UInventoryComponent : public UActorComponent
@@ -25,4 +26,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<class UInvItem*> Items;
+
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+		FOnInventoryUpdated OnInventoryUpdated;
 };
