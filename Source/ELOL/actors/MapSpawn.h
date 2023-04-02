@@ -31,6 +31,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> Pick;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> WAYPNT;
+
 	//variables
 
 public:	
