@@ -5,39 +5,23 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/SceneComponent.h"
-#include "MapSpawn.generated.h"
+#include "FogSpawn.generated.h"
 
 UCLASS()
-class ELOL_API AMapSpawn : public AActor
+class ELOL_API AFogSpawn : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AMapSpawn();
+	AFogSpawn();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//components
 	UPROPERTY(EditAnywhere)
 		USceneComponent* Root;
-
-	//properties
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> Asteroid;
-
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> Pick;
-
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> WAYPNT;
-
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> FogSpawner;
-
-	//variables
 
 public:	
 	// Called every frame
