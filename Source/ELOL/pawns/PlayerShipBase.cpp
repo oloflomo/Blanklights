@@ -53,10 +53,9 @@ APlayerShipBase::APlayerShipBase()
 void APlayerShipBase::thrusting(float timedelta)
 {
 	FVector XUnit = Root->GetRelativeRotation().Vector();
-	Root->AddForce(300000 * timedelta * XUnit);
-	if (EngineType)
+	if (!EngineType)
 	{
-		Root->AddForce(1000000000 * timedelta * XUnit);
+		Root->AddForce(1000000 * timedelta * XUnit);
 	}
 	//Controller.thrusting(1);
 }
@@ -91,6 +90,12 @@ void APlayerShipBase::InitFire()
 void APlayerShipBase::SwapEngine()
 {
 	EngineType = !EngineType;
+	warp_vec = Root->GetComponentRotation().Vector();
+	if (!EngineType)
+	{
+		Root->SetPhysicsLinearVelocity(warp_vec);
+		//Root->SetWorldRotation(warp_vec.Rotation());
+	}
 }
 
 void APlayerShipBase::ShowInv()
@@ -235,6 +240,12 @@ void APlayerShipBase::Tick(float DeltaTime)
 	if (durability < 0)
 	{
 		Destruction();
+	}
+
+	if (EngineType)
+	{
+		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
+		Root->SetWorldRotation(warp_vec.Rotation());
 	}
 }
 
