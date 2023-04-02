@@ -9,6 +9,7 @@
 #include "ELOL/ELOLGameInstance.h"
 #include "ELOL/components/InventoryComponent.h"
 #include "ELOL/components/WaypointComponent.h"
+#include "ELOL/structs/InvItem.h"
 #include "PlayerShipBase.generated.h"
 
 /**
@@ -24,16 +25,26 @@ public:
 	APlayerShipBase(); // ?E?
 
 	// Player Actions
-	void thrusting(float movementdelta);
-	void yawing(float movementdelta);
-	void pitching(float movementdelta);
-	void rolling(float movementdelta);
-	void InitFire();
-	void ShowInv();
-	void HideInv();
-	void ShowLoot();
-	void HideLoot();
-	void SwapEngine();
+	UFUNCTION()
+		void thrusting(float movementdelta);
+	UFUNCTION()
+		void yawing(float movementdelta);
+	UFUNCTION()
+		void pitching(float movementdelta);
+	UFUNCTION()
+		void rolling(float movementdelta);
+	UFUNCTION()
+		void InitFire();
+	UFUNCTION()
+		void ShowInv();
+	UFUNCTION()
+		void HideInv();
+	UFUNCTION()
+		void ShowLoot();
+	UFUNCTION()
+		void HideLoot();
+	UFUNCTION()
+		void SwapEngine();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -48,10 +59,15 @@ public:
 		void Serverrolling(float movementdelta);
 
 	//events
+	
+	UFUNCTION()
+		void Collision(double dmg);
 
-	void Collision(double dmg);
+	UFUNCTION()
+		void Destruction();
 
-	void Destruction();
+	UFUNCTION(BlueprintCallable, Category =  "Items")
+		void UseItem(class UInvItem* InvItem);
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);

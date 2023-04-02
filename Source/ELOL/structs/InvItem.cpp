@@ -9,9 +9,3 @@ UInvItem::UInvItem()
 	value = 0;
 }
 
-void UInvItem::Init(FString T, double V)
-{
-	type = T;
-	value = V;
-}
-

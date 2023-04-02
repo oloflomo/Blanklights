@@ -13,6 +13,7 @@ UInventoryComponent::UInventoryComponent()
 void UInventoryComponent::RollItem()
 {
 	UInvItem* NewItem = NewObject<UInvItem>(UInvItem::StaticClass());
+	NewItem->OwningInventory = this;
 	Items.Add(NewItem);
 	if (GEngine)
 	{

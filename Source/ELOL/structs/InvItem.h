@@ -17,14 +17,36 @@ class ELOL_API UInvItem : public UObject
 public:
 	UInvItem();
 
-	void Init(FString type, double value);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FText UseActionText;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		class UStaticMesh* PickupMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		class UTexture2D* Thumbnail;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FText ItemDisplayName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FText ItemDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		float Weight;
+
+	UPROPERTY()
+		class UInventoryComponent* OwningInventory;
+
+	virtual void Use(class APlayerShipBase* PlayerShip) PURE_VIRTUAL(UInvItem, );
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnUse(class APlayerShipBase* PlayerShip);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		FString type;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		double value;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		class UInventoryComponent* OwningInventory;
 };

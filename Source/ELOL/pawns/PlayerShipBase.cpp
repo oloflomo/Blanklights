@@ -232,6 +232,11 @@ void APlayerShipBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	}
 }
 
+void APlayerShipBase::UseItem(class UInvItem* Item)
+{
+
+}
+
 //overrides
 void APlayerShipBase::Tick(float DeltaTime)
 {
