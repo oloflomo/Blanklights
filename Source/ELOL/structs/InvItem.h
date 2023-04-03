@@ -43,7 +43,7 @@ public:
 	UPROPERTY()
 		class UInventoryComponent* OwningInventory;
 
-	virtual void Use(class APlayerShipBase* PlayerShip) PURE_VIRTUAL(UInvItem, );
+	virtual void Use(class APlayerShipBase* PlayerShip);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnUse(class APlayerShipBase* PlayerShip);

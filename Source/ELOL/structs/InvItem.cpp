@@ -10,3 +10,8 @@ UInvItem::UInvItem()
 	UseActionText = FText::FromString("Use");
 }
 
+
+void UInvItem::Use(class APlayerShipBase* PlayerShip)
+{
+
+}
