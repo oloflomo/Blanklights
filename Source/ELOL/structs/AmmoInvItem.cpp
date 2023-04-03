@@ -2,6 +2,7 @@
 
 
 #include "AmmoInvItem.h"
+#include "ELOL/pawns/PlayerShipBase.h"
 
 void UAmmoInvItem::Use(class APlayerShipBase* PlayerShip)
 {

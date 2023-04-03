@@ -10,6 +10,7 @@
 #include "ELOL/components/InventoryComponent.h"
 #include "ELOL/components/WaypointComponent.h"
 #include "ELOL/structs/InvItem.h"
+#include "ELOL/structs/AmmoInvItem.h"
 #include "PlayerShipBase.generated.h"
 
 /**

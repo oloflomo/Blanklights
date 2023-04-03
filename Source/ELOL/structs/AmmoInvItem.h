@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "InvItem.h"
-#include "ELOL/pawns/PlayerShipBase.h"
 #include "AmmoInvItem.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
 class ELOL_API UAmmoInvItem : public UInvItem
 {

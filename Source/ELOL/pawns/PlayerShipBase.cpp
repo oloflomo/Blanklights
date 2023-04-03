@@ -100,7 +100,7 @@ void APlayerShipBase::SwapEngine()
 
 UInvItem* APlayerShipBase::RollItem()
 {
-	UInvItem* Item = NewObject<UInvItem>(UInvItem::StaticClass());
+	UAmmoInvItem* Item = NewObject<UAmmoInvItem>(UAmmoInvItem::StaticClass());
 	return Item;
 }
 
