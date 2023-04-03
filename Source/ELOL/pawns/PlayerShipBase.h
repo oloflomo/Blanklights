@@ -116,6 +116,8 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> LootWidgetClass;
 
+public:
+
 	//variables
 	UPROPERTY(EditAnywhere)
 		double durability;

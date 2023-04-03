@@ -234,7 +234,11 @@ void APlayerShipBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 
 void APlayerShipBase::UseItem(class UInvItem* Item)
 {
-
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this);
+	}
 }
 
 //overrides

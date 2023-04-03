@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "ELOL/structs/InvItem.h"
+//#pragma warning(disable: <warning code>)
+//#include "ELOL/structs/AmmoInvItem.h"
 #include "InventoryComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
@@ -20,6 +22,8 @@ public:
 
 	//events
 	void RollItem();
+	void AddItem(class UInvItem* Item);
+	void RemoveItem(class UInvItem* Item);
 
 	// Called when the game starts
 	virtual void BeginPlay() override;

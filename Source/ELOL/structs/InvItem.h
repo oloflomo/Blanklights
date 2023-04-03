@@ -9,13 +9,18 @@
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class ELOL_API UInvItem : public UObject
 {
 	GENERATED_BODY()
 
 public:
 	UInvItem();
+
+	virtual class UWorld* GetWorld() const { return World; };
+
+	UPROPERTY(Transient)
+		class UWorld* World;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		FText UseActionText;
@@ -29,10 +34,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		FText ItemDisplayName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
 		FText ItemDescription;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
 		float Weight;
 
 	UPROPERTY()
@@ -42,11 +47,5 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnUse(class APlayerShipBase* PlayerShip);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		FString type;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		double value;
 
 };
