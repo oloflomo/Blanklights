@@ -119,6 +119,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> LootWidgetClass;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UInvItem> ItemClass1;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UInvItem> ItemClass2;
+
 public:
 
 	//variables

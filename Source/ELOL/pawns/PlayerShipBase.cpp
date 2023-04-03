@@ -137,8 +137,10 @@ void APlayerShipBase::ShowLoot()
 	}
 
 	Inventory->AddItem(RollItem());
-	Inventory->AddItem(RollItem());
-	Inventory->AddItem(RollItem());
+	UInvItem * Item = NewObject<UInvItem>(ItemClass1);
+	Inventory->AddItem(Item);
+	Item = NewObject<UInvItem>(ItemClass2);
+	Inventory->AddItem(Item);
 
 	if (LootWidget)
 	{
