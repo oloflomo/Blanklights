@@ -45,6 +45,8 @@ public:
 		void HideLoot();
 	UFUNCTION()
 		void SwapEngine();
+	UFUNCTION()
+		UInvItem* RollItem();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)

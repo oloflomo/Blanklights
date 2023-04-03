@@ -10,4 +10,3 @@ void UAmmoInvItem::Use(class APlayerShipBase* PlayerShip)
 		PlayerShip->durability -= Heal;
 	}
 }
-

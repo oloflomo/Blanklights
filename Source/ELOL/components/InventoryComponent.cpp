@@ -9,22 +9,6 @@ UInventoryComponent::UInventoryComponent()
 
 }
 
-void UInventoryComponent::RollItem()
-{
-	//UAmmoInvItem* Item = NewObject<UAmmoInvItem>(UAmmoInvItem::StaticClass());
-	UInvItem* Item = NewObject<UInvItem>(UInvItem::StaticClass());
-	Item->OwningInventory = this;
-	Item->World = GetWorld();
-	Items.Add(Item);
-
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAA"));
-	}
-
-	OnInventoryUpdated.Broadcast();
-}
-
 void UInventoryComponent::AddItem(UInvItem* Item)
 {
 	if (!Item)
@@ -35,6 +19,11 @@ void UInventoryComponent::AddItem(UInvItem* Item)
 	Item->OwningInventory = this;
 	Item->World = GetWorld();
 	Items.Add(Item);
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAA"));
+	}
 
 	OnInventoryUpdated.Broadcast();
 }
@@ -54,7 +43,4 @@ void UInventoryComponent::RemoveItem(UInvItem* Item)
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	RollItem();
-	RollItem();
-	RollItem();
 }

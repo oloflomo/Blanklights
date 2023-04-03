@@ -98,6 +98,12 @@ void APlayerShipBase::SwapEngine()
 	}
 }
 
+UInvItem* APlayerShipBase::RollItem()
+{
+	UInvItem* Item = NewObject<UInvItem>(UInvItem::StaticClass());
+	return Item;
+}
+
 void APlayerShipBase::ShowInv()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
@@ -130,9 +136,9 @@ void APlayerShipBase::ShowLoot()
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	Inventory->RollItem();
-	Inventory->RollItem();
-	Inventory->RollItem();
+	Inventory->AddItem(RollItem());
+	Inventory->AddItem(RollItem());
+	Inventory->AddItem(RollItem());
 
 	if (LootWidget)
 	{
