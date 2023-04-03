@@ -207,14 +207,6 @@ bool APlayerShipBase::Serverrolling_Validate(float timedelta)
 void APlayerShipBase::Collision(double dmg = 1)
 {
 	durability -= dmg;
-	if (Widget)
-	{
-		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
-		if (ProgressBar)
-		{
-			ProgressBar->SetPercent(durability / double(101));
-		}
-	}
 }
 
 void APlayerShipBase::Destruction()
@@ -261,6 +253,15 @@ void APlayerShipBase::Tick(float DeltaTime)
 	{
 		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
 		Root->SetWorldRotation(warp_vec.Rotation());
+	}
+
+	if (Widget)
+	{
+		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
+		if (ProgressBar)
+		{
+			ProgressBar->SetPercent(durability / double(100));
+		}
 	}
 }
 

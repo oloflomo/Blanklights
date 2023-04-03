@@ -20,6 +20,8 @@ protected:
 
 
 public:
+	UAmmoInvItem();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		float Heal;
 };
