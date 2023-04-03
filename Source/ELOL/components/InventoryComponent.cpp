@@ -22,7 +22,7 @@ void UInventoryComponent::AddItem(UInvItem* Item)
 
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("AAAAAAA"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, (Item->ItemDisplayName).ToString());
 	}
 
 	OnInventoryUpdated.Broadcast();
