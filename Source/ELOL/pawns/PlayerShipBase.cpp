@@ -82,8 +82,10 @@ void APlayerShipBase::InitFire()
 {
 	if (BulletType)
 	{
-		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
-		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
+		FVector FUnit = Root->GetForwardVector();
+		FVector TUnit = Root->GetRightVector();
+		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + 300 * FUnit + 20 * TUnit, GetActorRotation());
+		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + 300 * FUnit - 20 * TUnit, GetActorRotation());
 	}
 }
 
