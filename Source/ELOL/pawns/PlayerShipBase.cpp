@@ -2,6 +2,7 @@
 
 
 #include "PlayerShipBase.h"
+#include "Components/Button.h"
 
 APlayerShipBase::APlayerShipBase()
 {
@@ -108,13 +109,13 @@ UInvItem* APlayerShipBase::RollItem()
 
 void APlayerShipBase::ShowLoot()
 {
-	//APlayerController* PC = Cast<APlayerController>(GetController());
+	APlayerController* PC = Cast<APlayerController>(GetController());
 
-	//if (PC)
-	//{
-	//	PC->bEnableClickEvents = true;				show it in the main inventory
-	//	PC->bEnableMouseOverEvents = true;
-	//}
+	if (PC)
+	{
+		PC->bEnableClickEvents = true;
+		PC->bEnableMouseOverEvents = true;
+	}
 
 	Inventory->AddItem(RollItem());
 	UInvItem * Item = NewObject<UInvItem>(ItemClass1);
@@ -122,18 +123,26 @@ void APlayerShipBase::ShowLoot()
 	Item = NewObject<UInvItem>(ItemClass2);
 	Inventory->AddItem(Item);
 
-	//if (LootWidget)
-	//{
-	//	LootWidget->AddToViewport();
-	//}
+	if (Widget)
+	{
+		UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+		if (Button)
+		{
+			Button->SetVisibility(ESlateVisibility::Visible);
+		}
+	}
 }
 
 void APlayerShipBase::HideLoot()
 {
-	//if (LootWidget)
-	//{											show it in the main inventory
-	//	LootWidget->RemoveFromViewport();
-	//}
+	if (Widget)
+	{
+		UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+		if (Button)
+		{
+			Button->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
 }
 
 //server
