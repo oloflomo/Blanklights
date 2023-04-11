@@ -106,37 +106,15 @@ UInvItem* APlayerShipBase::RollItem()
 	return Item;
 }
 
-void APlayerShipBase::ShowInv()
-{
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	if (PC)
-	{
-		PC->bEnableClickEvents = true;
-		PC->bEnableMouseOverEvents = true;
-	}
-	if (InvWidget)
-	{
-		InvWidget->AddToViewport();
-	}
-}
-
-void APlayerShipBase::HideInv()
-{
-	if (InvWidget)
-	{
-		InvWidget->RemoveFromViewport();
-	}
-}
-
 void APlayerShipBase::ShowLoot()
 {
-	APlayerController* PC = Cast<APlayerController>(GetController());
+	//APlayerController* PC = Cast<APlayerController>(GetController());
 
-	if (PC)
-	{
-		PC->bEnableClickEvents = true;
-		PC->bEnableMouseOverEvents = true;
-	}
+	//if (PC)
+	//{
+	//	PC->bEnableClickEvents = true;				show it in the main inventory
+	//	PC->bEnableMouseOverEvents = true;
+	//}
 
 	Inventory->AddItem(RollItem());
 	UInvItem * Item = NewObject<UInvItem>(ItemClass1);
@@ -144,18 +122,18 @@ void APlayerShipBase::ShowLoot()
 	Item = NewObject<UInvItem>(ItemClass2);
 	Inventory->AddItem(Item);
 
-	if (LootWidget)
-	{
-		LootWidget->AddToViewport();
-	}
+	//if (LootWidget)
+	//{
+	//	LootWidget->AddToViewport();
+	//}
 }
 
 void APlayerShipBase::HideLoot()
 {
-	if (LootWidget)
-	{
-		LootWidget->RemoveFromViewport();
-	}
+	//if (LootWidget)
+	//{											show it in the main inventory
+	//	LootWidget->RemoveFromViewport();
+	//}
 }
 
 //server
@@ -282,16 +260,6 @@ void APlayerShipBase::BeginPlay()
 		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 		Widget->AddToViewport();
 	}
-
-	if (InvWidgetClass)
-	{
-		InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
-	}
-
-	if (LootWidgetClass)
-	{
-		LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
-	}
 }
 
 
@@ -304,8 +272,6 @@ void APlayerShipBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	//register inputs
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShipBase::ServerInitFire);
-	PlayerInputComponent->BindAction("Inv", IE_Pressed, this, &APlayerShipBase::ShowInv);
-	PlayerInputComponent->BindAction("Inv", IE_Released, this, &APlayerShipBase::HideInv);
 	PlayerInputComponent->BindAxis("thrust", this, &APlayerShipBase::Serverthrusting);
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShipBase::Serverpitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShipBase::Serveryawing);

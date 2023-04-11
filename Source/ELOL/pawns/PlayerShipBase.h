@@ -37,10 +37,6 @@ public:
 	UFUNCTION()
 		void InitFire();
 	UFUNCTION()
-		void ShowInv();
-	UFUNCTION()
-		void HideInv();
-	UFUNCTION()
 		void ShowLoot();
 	UFUNCTION()
 		void HideLoot();
@@ -112,12 +108,6 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UUserWidget> WidgetClass;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UUserWidget> InvWidgetClass;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UUserWidget> LootWidgetClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UInvItem> ItemClass1;
