@@ -93,12 +93,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UUserWidget* Widget;
 
-	UPROPERTY(EditAnywhere)
-		UUserWidget* InvWidget;
-
-	UPROPERTY(EditAnywhere)
-		UUserWidget* LootWidget;
-
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BulletType;
