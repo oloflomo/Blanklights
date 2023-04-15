@@ -103,7 +103,7 @@ void APlayerShipBase::SwapEngine()
 
 UInvItem* APlayerShipBase::RollItem()
 {
-	UAmmoInvItem* Item = NewObject<UAmmoInvItem>(UAmmoInvItem::StaticClass());
+	UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
 	return Item;
 }
 
@@ -118,9 +118,9 @@ void APlayerShipBase::ShowLoot()
 	}
 
 	Inventory->AddItem(RollItem());
-	UInvItem * Item = NewObject<UInvItem>(ItemClass1);
+	UInvItem * Item = NewObject<UInvItem>(this, ItemClass1);
 	Inventory->AddItem(Item);
-	Item = NewObject<UInvItem>(ItemClass2);
+	Item = NewObject<UInvItem>(this, ItemClass2);
 	Inventory->AddItem(Item);
 
 	if (Widget)
