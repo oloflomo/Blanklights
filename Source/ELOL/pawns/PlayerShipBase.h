@@ -34,7 +34,7 @@ public:
 		void pitching(float movementdelta);
 	UFUNCTION()
 		void rolling(float movementdelta);
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void InitFire();
 	UFUNCTION()
 		void ShowLoot();
