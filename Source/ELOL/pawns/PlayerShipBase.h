@@ -121,6 +121,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int AmmoLeft;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int FuelLeft;
+
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);
 

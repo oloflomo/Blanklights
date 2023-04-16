@@ -138,6 +138,7 @@ void APlayerShipBase::ShowLoot()
 	}
 
 	AmmoLeft += 10;
+	FuelLeft += 10;
 }
 
 void APlayerShipBase::HideLoot()
@@ -268,6 +269,7 @@ void APlayerShipBase::BeginPlay()
 	Super::BeginPlay();
 	durability = 100;
 	AmmoLeft = 5;
+	FuelLeft = 5;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
