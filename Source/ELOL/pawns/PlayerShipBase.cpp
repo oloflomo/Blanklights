@@ -85,8 +85,12 @@ void APlayerShipBase::InitFire()
 	{
 		FVector FUnit = Root->GetForwardVector();
 		FVector TUnit = Root->GetRightVector();
-		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + 300 * FUnit + 20 * TUnit, GetActorRotation());
-		GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + 300 * FUnit - 20 * TUnit, GetActorRotation());
+		FTransform SpawnTransform1 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit + 40 * TUnit, FVector(1, 1, 1));
+		FTransform SpawnTransform2 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit - 40 * TUnit, FVector(1, 1, 1));
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.Owner = this;
+		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform1, SpawnParameters);
+		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform2, SpawnParameters);
 	}
 }
 
