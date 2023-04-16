@@ -81,7 +81,7 @@ void APlayerShipBase::rolling(float timedelta)
 
 void APlayerShipBase::InitFire()
 {
-	if (BulletType)
+	if (BulletType && AmmoLeft)
 	{
 		FVector FUnit = Root->GetForwardVector();
 		FVector TUnit = Root->GetRightVector();
@@ -91,6 +91,7 @@ void APlayerShipBase::InitFire()
 		SpawnParameters.Owner = this;
 		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform1, SpawnParameters);
 		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform2, SpawnParameters);
+		AmmoLeft--;
 	}
 }
 
@@ -135,6 +136,8 @@ void APlayerShipBase::ShowLoot()
 			Button->SetVisibility(ESlateVisibility::Visible);
 		}
 	}
+
+	AmmoLeft += 10;
 }
 
 void APlayerShipBase::HideLoot()
@@ -264,6 +267,7 @@ void APlayerShipBase::BeginPlay()
 {
 	Super::BeginPlay();
 	durability = 100;
+	AmmoLeft = 5;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);

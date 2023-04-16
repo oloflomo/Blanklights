@@ -118,6 +118,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool EngineType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int AmmoLeft;
+
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);
 
