@@ -30,9 +30,9 @@ ARocket::ARocket()
 void ARocket::BeginPlay()
 {
 	Super::BeginPlay();
-	lifespan = 400;
+	lifespan = 30;
 	Mesh->OnComponentHit.AddDynamic(this, &ARocket::OnHit);
-	Mesh->SetPhysicsLinearVelocity(100 * Mesh->GetUpVector());
+	Mesh->SetPhysicsLinearVelocity(GetOwner()->GetVelocity());
 }
 
 void ARocket::Collision()
@@ -69,7 +69,7 @@ void ARocket::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitive
 void ARocket::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	Mesh->AddForce(10000 * Mesh->GetUpVector());
+	Mesh->AddForce(1000000 * Mesh->GetUpVector());
 	lifespan--;
 	if (lifespan < 0)
 	{
