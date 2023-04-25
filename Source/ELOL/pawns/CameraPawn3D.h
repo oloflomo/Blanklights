@@ -38,6 +38,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 		double CameraRadius;
 
+	UPROPERTY(VisibleAnywhere)
+		int delay;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
