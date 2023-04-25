@@ -2,6 +2,7 @@
 
 
 #include "ELOLGameInstance.h"
+#include "Blueprint/UserWidget.h"
 
 // Sets default values
 UELOLGameInstance::UELOLGameInstance()
