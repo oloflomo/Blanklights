@@ -37,6 +37,7 @@ APlayerShipBase::APlayerShipBase()
 	Mesh3->SetSimulatePhysics(false);
 
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+	Inventory->ItemClass1 = ItemClass1;
 
 	/*Way_comp = CreateDefaultSubobject<UWaypointComponent>(TEXT("Wid_comp"));
 
@@ -106,13 +107,7 @@ void APlayerShipBase::SwapEngine()
 	}
 }
 
-UInvItem* APlayerShipBase::RollItem()
-{
-	UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
-	return Item;
-}
-
-void APlayerShipBase::ShowLoot()
+void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory = nullptr)
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
@@ -122,7 +117,7 @@ void APlayerShipBase::ShowLoot()
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	Inventory->AddItem(RollItem());
+	Inventory->RollItem();
 
 	if (Widget)
 	{
