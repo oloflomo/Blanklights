@@ -20,6 +20,7 @@ Apickup::Apickup()
 	Capsule->InitCapsuleSize(100000.f, 100000.f);
 	
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+	Inventory->ItemClass1 = ItemClass1;
 
 	RootComponent = Mesh;
 }
@@ -56,11 +57,6 @@ void Apickup::BeginPlay()
 	Super::BeginPlay();
 	Capsule->OnComponentBeginOverlap.AddDynamic(this, &Apickup::OverlapBegin);
 	Capsule->OnComponentEndOverlap.AddDynamic(this, &Apickup::OverlapEnd);
-	Inventory->ItemClass1 = ItemClass1;
-
-	Inventory->RollItem();
-	Inventory->RollItem();
-	Inventory->RollItem();
 }
 
 void Apickup::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,

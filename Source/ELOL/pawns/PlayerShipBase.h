@@ -58,9 +58,6 @@ public:
 		void Serverrolling(float movementdelta);
 
 	//events
-
-	UFUNCTION(BlueprintImplementableEvent)
-		void ShowForeignInv(UInventoryComponent* ForeignInventory);
 	
 	UFUNCTION()
 		void Collision(double dmg);
@@ -93,7 +90,7 @@ protected:
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UWaypointComponent* Way_comp;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(EditAnywhere)
 		UUserWidget* Widget;
 
 	//properties
