@@ -46,9 +46,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<APlayerShipBase> PlayerShipClass;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		UInventoryComponent* Inventory;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

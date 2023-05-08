@@ -19,7 +19,6 @@ Apickup::Apickup()
 	Capsule->SetupAttachment(Mesh);
 	Capsule->InitCapsuleSize(100000.f, 100000.f);
 	
-	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
 
 	RootComponent = Mesh;
 }
