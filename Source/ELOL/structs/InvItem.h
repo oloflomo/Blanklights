@@ -40,7 +40,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
 		float Weight;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 		class UInventoryComponent* OwningInventory;
 
 	virtual void Use(class APlayerShipBase* PlayerShip);
