@@ -6,7 +6,7 @@
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
 {
-
+	
 }
 
 void UInventoryComponent::AddItem(UInvItem* Item)
