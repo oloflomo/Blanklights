@@ -20,7 +20,6 @@ Apickup::Apickup()
 	Capsule->InitCapsuleSize(100000.f, 100000.f);
 	
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
-	Inventory->ItemClass1 = ItemClass1;
 
 	RootComponent = Mesh;
 }
@@ -34,7 +33,7 @@ void Apickup::Pick(AActor* other)
 	if (other->IsA(APlayerShipBase::StaticClass()))
 	{
 		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
-		Ship->ShowLoot(Inventory);
+		Ship->ShowLoot();
 	}
 }
 
