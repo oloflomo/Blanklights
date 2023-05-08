@@ -37,7 +37,6 @@ APlayerShipBase::APlayerShipBase()
 	Mesh3->SetSimulatePhysics(false);
 
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
-	Inventory->ItemClass1 = ItemClass1;
 
 	/*Way_comp = CreateDefaultSubobject<UWaypointComponent>(TEXT("Wid_comp"));
 
@@ -118,6 +117,9 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory = nullptr)
 	}
 
 	Inventory->RollItem();
+
+	//widget show foreign inventory
+	ShowForeignInv(ForeignInventory);
 
 	if (Widget)
 	{
@@ -270,6 +272,8 @@ void APlayerShipBase::BeginPlay()
 		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 		Widget->AddToViewport();
 	}
+
+	Inventory->ItemClass1 = ItemClass1;
 }
 
 
