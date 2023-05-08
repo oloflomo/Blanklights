@@ -33,7 +33,16 @@ void UInventoryComponent::RollItem()
 	if (ItemClass1)
 	{
 		UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
-		AddItem(Item);
+		Item->OwningInventory = this;
+		Item->World = GetWorld();
+		Items.Add(Item);
+
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, (Item->ItemDisplayName).ToString());
+		}
+
+		OnInventoryUpdated.Broadcast();
 	}
 }
 
