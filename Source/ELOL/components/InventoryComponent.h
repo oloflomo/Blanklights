@@ -20,8 +20,11 @@ public:
 	UInventoryComponent();
 
 	//events
+	UFUNCTION(BlueprintCallable)
 	void AddItem(class UInvItem* Item);
+	UFUNCTION(BlueprintCallable)
 	void RemoveItem(class UInvItem* Item);
+	UFUNCTION(BlueprintCallable)
 	void RollItem();
 
 	// Called when the game starts
