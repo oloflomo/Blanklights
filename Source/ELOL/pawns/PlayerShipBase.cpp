@@ -112,7 +112,7 @@ UInvItem* APlayerShipBase::RollItem()
 	return Item;
 }
 
-void APlayerShipBase::ShowLoot()
+void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
