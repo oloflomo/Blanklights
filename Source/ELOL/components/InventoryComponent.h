@@ -21,12 +21,16 @@ public:
 	//events
 	void AddItem(class UInvItem* Item);
 	void RemoveItem(class UInvItem* Item);
+	void RollItem();
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<class UInvItem*> Items;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UInvItem> ItemClass1;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 		FOnInventoryUpdated OnInventoryUpdated;
