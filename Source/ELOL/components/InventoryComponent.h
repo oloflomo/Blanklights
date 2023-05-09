@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "ELOL/structs/InvItem.h"
-#include "ELOL/structs/AmmoInvItem.h"
 #include "InventoryComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
@@ -22,16 +21,12 @@ public:
 	//events
 	void AddItem(class UInvItem* Item);
 	void RemoveItem(class UInvItem* Item);
-	void RollItem();
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<class UInvItem*> Items;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UInvItem> ItemClass1;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 		FOnInventoryUpdated OnInventoryUpdated;

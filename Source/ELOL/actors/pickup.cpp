@@ -33,7 +33,7 @@ void Apickup::Pick(AActor* other)
 	if (other->IsA(APlayerShipBase::StaticClass()))
 	{
 		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
-		Ship->ShowLoot(Inventory);
+		Ship->ShowLoot();
 	}
 }
 
@@ -56,7 +56,6 @@ void Apickup::BeginPlay()
 	Super::BeginPlay();
 	Capsule->OnComponentBeginOverlap.AddDynamic(this, &Apickup::OverlapBegin);
 	Capsule->OnComponentEndOverlap.AddDynamic(this, &Apickup::OverlapEnd);
-	Inventory->ItemClass1 = ItemClass1;
 }
 
 void Apickup::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,

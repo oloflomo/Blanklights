@@ -49,9 +49,6 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UInventoryComponent* Inventory;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UInvItem> ItemClass1;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

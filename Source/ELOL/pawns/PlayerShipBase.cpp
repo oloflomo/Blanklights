@@ -106,7 +106,13 @@ void APlayerShipBase::SwapEngine()
 	}
 }
 
-void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory = nullptr)
+UInvItem* APlayerShipBase::RollItem()
+{
+	UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
+	return Item;
+}
+
+void APlayerShipBase::ShowLoot()
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
@@ -116,7 +122,7 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory = nullptr)
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	Inventory->RollItem();
+	Inventory->AddItem(RollItem());
 
 	if (Widget)
 	{
@@ -269,8 +275,6 @@ void APlayerShipBase::BeginPlay()
 		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 		Widget->AddToViewport();
 	}
-
-	Inventory->ItemClass1 = ItemClass1;
 }
 
 

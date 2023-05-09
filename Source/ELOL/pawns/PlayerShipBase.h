@@ -37,7 +37,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void InitFire();
 	UFUNCTION()
-		void ShowLoot(UInventoryComponent* ForeignInventory);
+		void ShowLoot();
 	UFUNCTION()
 		void HideLoot();
 	UFUNCTION()
