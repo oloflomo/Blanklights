@@ -127,29 +127,34 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 	ShowForeignInv(ForeignInventory);
 	ShowLootBP();
 
-	if (Widget)
-	{
-		UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
-		if (Button)
-		{
-			Button->SetVisibility(ESlateVisibility::Visible);
-		}
-	}
+	//if (Widget)
+	//{
+	//	UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+	//	if (Button)
+	//	{
+	//		Button->SetVisibility(ESlateVisibility::Visible);
+	//	}
+	//}
 
 	FuelLeft += 10;
 }
 
 void APlayerShipBase::HideLoot()
 {
-	if (Widget)
-	{
-		UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
-		if (Button)
-		{
-			Button->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
+	//if (Widget)
+	//{
+	//	UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+	//	if (Button)
+	//	{
+	//		Button->SetVisibility(ESlateVisibility::Hidden);
+	//	}
+	//}
 	HideLootBP();
+}
+
+void APlayerShipBase::Attachedcpp()
+{
+
 }
 
 //server

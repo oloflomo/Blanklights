@@ -77,6 +77,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void HideLootBP();
 
+	UFUNCTION(BlueprintCallable)
+		void Attachedcpp();
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
