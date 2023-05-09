@@ -124,6 +124,8 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 
 	Inventory->RollItem();
 
+	ShowForeignInv(ForeignInventory);
+
 	if (Widget)
 	{
 		UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));

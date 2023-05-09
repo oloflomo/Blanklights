@@ -68,6 +68,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category =  "Items")
 		void UseItem(class UInvItem* InvItem);
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowForeignInv(UInventoryComponent* ForeignInventory);
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
@@ -90,7 +93,7 @@ protected:
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UWaypointComponent* Way_comp;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UUserWidget* Widget;
 
 	//properties

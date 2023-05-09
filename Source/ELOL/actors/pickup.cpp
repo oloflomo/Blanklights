@@ -57,6 +57,10 @@ void Apickup::BeginPlay()
 	Capsule->OnComponentBeginOverlap.AddDynamic(this, &Apickup::OverlapBegin);
 	Capsule->OnComponentEndOverlap.AddDynamic(this, &Apickup::OverlapEnd);
 	Inventory->ItemClass1 = ItemClass1;
+
+	Inventory->RollItem();
+	Inventory->RollItem();
+	Inventory->RollItem();
 }
 
 void Apickup::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
