@@ -125,6 +125,7 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 	Inventory->RollItem();
 
 	ShowForeignInv(ForeignInventory);
+	ShowLootBP();
 
 	if (Widget)
 	{
@@ -148,6 +149,7 @@ void APlayerShipBase::HideLoot()
 			Button->SetVisibility(ESlateVisibility::Hidden);
 		}
 	}
+	HideLootBP();
 }
 
 //server

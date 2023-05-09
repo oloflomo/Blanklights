@@ -71,6 +71,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void ShowForeignInv(UInventoryComponent* ForeignInventory);
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowLootBP();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void HideLootBP();
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
