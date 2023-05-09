@@ -80,6 +80,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void Attachedcpp();
 
+	UFUNCTION(BlueprintCallable)
+		void Detachedcpp();
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
@@ -135,6 +138,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int FuelLeft;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Inplace;
 
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);

@@ -154,7 +154,12 @@ void APlayerShipBase::HideLoot()
 
 void APlayerShipBase::Attachedcpp()
 {
+	Inplace = 1;
+}
 
+void APlayerShipBase::Detachedcpp()
+{
+	Inplace = 0;
 }
 
 //server
@@ -266,6 +271,11 @@ void APlayerShipBase::Tick(float DeltaTime)
 			ProgressBar->SetPercent(durability / double(100));
 		}
 	}
+
+	if (Inplace == 1)
+	{
+		Root->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+	}
 }
 
 void APlayerShipBase::BeginPlay()
@@ -274,6 +284,7 @@ void APlayerShipBase::BeginPlay()
 	durability = 100;
 	AmmoLeft = 5;
 	FuelLeft = 5;
+	Inplace = 0;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
