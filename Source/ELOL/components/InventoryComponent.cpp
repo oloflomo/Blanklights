@@ -28,6 +28,24 @@ void UInventoryComponent::AddItem(UInvItem* Item)
 	OnInventoryUpdated.Broadcast();
 }
 
+void UInventoryComponent::RollItem()
+{
+	if (ItemClass1)
+	{
+		UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
+		Item->OwningInventory = this;
+		Item->World = GetWorld();
+		Items.Add(Item);
+
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, (Item->ItemDisplayName).ToString());
+		}
+
+		OnInventoryUpdated.Broadcast();
+	}
+}
+
 void UInventoryComponent::RemoveItem(UInvItem* Item)
 {
 	if (Item)
