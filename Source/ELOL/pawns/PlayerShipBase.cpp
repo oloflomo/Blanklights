@@ -122,7 +122,7 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	Inventory->AddItem(RollItem());
+	Inventory->RollItem();
 
 	if (Widget)
 	{
