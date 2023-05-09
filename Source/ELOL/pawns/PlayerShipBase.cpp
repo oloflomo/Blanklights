@@ -135,7 +135,6 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 		}
 	}
 
-	AmmoLeft += 10;
 	FuelLeft += 10;
 }
 
