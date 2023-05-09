@@ -22,8 +22,6 @@ ACameraPawn3D::ACameraPawn3D()
 
 	CameraRadius = 200;
 
-	delay = 100;
-
 	RootComponent = Root;
 }
 
@@ -58,19 +56,19 @@ void ACameraPawn3D::BeginPlay()
 void ACameraPawn3D::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//FRotator Rotation = Camera->GetRelativeRotation();
-	//double roll = Rotation.Roll;
-	//double pitch = Rotation.Pitch;
-	//double yaw = Rotation.Yaw;
-	//if (delay < 20)
-	//{
-	//	Camera->AddLocalRotation(FRotator(0, 0, -roll/10));
-	//}
-	//delay -= 1;
-	//if (delay < 0)
-	//{
-	//	delay = 80;
-	//}
+	FRotator Rotation = Camera->GetRelativeRotation();
+	double roll = Rotation.Roll;
+	double pitch = Rotation.Pitch;
+	double yaw = Rotation.Yaw;
+	if (pitch > 70)
+	{
+		Camera->SetRelativeRotation(FRotator(70, yaw, roll));
+	}
+	if (pitch < -70)
+	{
+		Camera->SetRelativeRotation(FRotator(-70, yaw, roll));
+	}
+	Camera->AddLocalRotation(FRotator(0, 0, -roll));
 }
 
 // Called to bind functionality to input
