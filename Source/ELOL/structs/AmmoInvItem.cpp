@@ -13,6 +13,6 @@ void UAmmoInvItem::Use(class APlayerShipBase* PlayerShip)
 {
 	if (PlayerShip)
 	{
-		PlayerShip->durability -= Heal;
+		PlayerShip->AmmoLeft += Heal;
 	}
 }
