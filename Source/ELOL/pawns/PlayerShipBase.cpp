@@ -275,6 +275,8 @@ void APlayerShipBase::BeginPlay()
 		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
 		Widget->AddToViewport();
 	}
+
+	Inventory->ItemClass1 = ItemClass1;
 }
 
 
