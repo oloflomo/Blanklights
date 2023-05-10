@@ -51,45 +51,87 @@ APlayerShipBase::APlayerShipBase()
 
 void APlayerShipBase::thrusting(float timedelta)
 {
-	FVector XUnit = Root->GetRelativeRotation().Vector();
-	if (Mode == 0)
+	switch (Mode)
 	{
+	case 0:
+	{
+		FVector XUnit = Root->GetRelativeRotation().Vector();
 		Root->AddForce(1000000 * timedelta * XUnit);
+		break;
+	}
+	default:
+		break;
 	}
 	//Controller.thrusting(1);
 }
 
 void APlayerShipBase::yawing(float timedelta)
 {
-	FVector YUnit = Root->GetRightVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(10000000, 0, 0));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector YUnit = Root->GetRightVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(10000000, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::pitching(float timedelta)
 {
-	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(10000000, 0, 0));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector ZUnit = Root->GetUpVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(10000000, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::rolling(float timedelta)
 {
-	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 10000000));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector ZUnit = Root->GetUpVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 10000000));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::InitFire()
 {
-	if (BulletType && AmmoLeft)
+	switch (Mode)
 	{
-		FVector FUnit = Root->GetForwardVector();
-		FVector TUnit = Root->GetRightVector();
-		FTransform SpawnTransform1 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit + 40 * TUnit, FVector(1, 1, 1));
-		FTransform SpawnTransform2 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit - 40 * TUnit, FVector(1, 1, 1));
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.Owner = this;
-		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform1, SpawnParameters);
-		GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform2, SpawnParameters);
-		AmmoLeft--;
+	case 0:
+	{
+		if (BulletType && AmmoLeft)
+		{
+			FVector FUnit = Root->GetForwardVector();
+			FVector TUnit = Root->GetRightVector();
+			FTransform SpawnTransform1 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit + 40 * TUnit, FVector(1, 1, 1));
+			FTransform SpawnTransform2 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit - 40 * TUnit, FVector(1, 1, 1));
+			FActorSpawnParameters SpawnParameters;
+			SpawnParameters.Owner = this;
+			GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform1, SpawnParameters);
+			GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform2, SpawnParameters);
+			AmmoLeft--;
+		}
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -98,20 +140,25 @@ void APlayerShipBase::SwapEngine()
 	switch (Mode)
 	{
 	case 0:
+	{
 		Mode = 2;
-		break;
-	case 2:
-		Mode = 0;
-		break;
-	default:
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
 		break;
 	}
-	warp_vec = Root->GetComponentRotation().Vector();
-	if (Mode == 0)
+	case 2:
 	{
+		Mode = 0;
+		warp_vec = Root->GetComponentRotation().Vector();
 		Root->SetPhysicsLinearVelocity(warp_vec);
 		Root->SetWorldRotation(warp_vec.Rotation());
 		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -164,6 +211,8 @@ void APlayerShipBase::HideLoot()
 void APlayerShipBase::Attachedcpp()
 {
 	Mode = 1;
+	Root->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+	Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
 }
 
 void APlayerShipBase::Detachedcpp()
@@ -278,14 +327,13 @@ void APlayerShipBase::Tick(float DeltaTime)
 	switch (Mode)
 	{
 	case 1:
-		Root->SetPhysicsLinearVelocity(FVector(0, 0, 0));
-		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+	{
 		break;
+	}
 	case 2:
-		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
-		Root->SetWorldRotation(warp_vec.Rotation());
-		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+	{
 		break;
+	}
 	default:
 		break;
 	}
