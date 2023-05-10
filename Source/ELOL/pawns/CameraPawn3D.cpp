@@ -141,22 +141,28 @@ void ACameraPawn3D::BeginPlay()
 void ACameraPawn3D::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	FRotator Rotation = Camera->GetRelativeRotation();
-	double roll = Rotation.Roll;
-	Camera->AddLocalRotation(FRotator(0, 0, -roll));
 
 	switch (Mode)
 	{
 	case 0:
 	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
 		break;
 	}
 	case 1:
 	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
 		break;
 	}
 	case 2:
 	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
 		break;
 	}
 	default:
