@@ -41,6 +41,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 		int delay;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Mode;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

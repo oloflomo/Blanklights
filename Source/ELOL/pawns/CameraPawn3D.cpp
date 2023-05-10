@@ -20,8 +20,6 @@ ACameraPawn3D::ACameraPawn3D()
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
 	Camera->SetRelativeRotation(FRotator(0, 0, 0));
 
-	CameraRadius = 200;
-
 	RootComponent = Root;
 }
 
@@ -50,6 +48,8 @@ void ACameraPawn3D::CameraRadiusSwap(float movementdelta)
 void ACameraPawn3D::BeginPlay()
 {
 	Super::BeginPlay();
+	Mode = 0;
+	CameraRadius = 200;
 }
 
 // Called every frame
