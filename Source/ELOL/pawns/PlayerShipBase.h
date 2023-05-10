@@ -131,16 +131,13 @@ public:
 		double durability;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool EngineType;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int AmmoLeft;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int FuelLeft;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool Inplace;
+		int Mode;
 
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);

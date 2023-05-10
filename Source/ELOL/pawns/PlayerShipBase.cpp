@@ -44,8 +44,6 @@ APlayerShipBase::APlayerShipBase()
 	Way_comp->SetRelativeLocation(FVector(0, 0, 0));
 	Way_comp->SetWorldRotation(FRotator(0, 0, 0));*/
 
-	EngineType = 0;
-
 	RootComponent = Root;
 }
 
@@ -54,7 +52,7 @@ APlayerShipBase::APlayerShipBase()
 void APlayerShipBase::thrusting(float timedelta)
 {
 	FVector XUnit = Root->GetRelativeRotation().Vector();
-	if (!EngineType)
+	if (Mode == 0)
 	{
 		Root->AddForce(1000000 * timedelta * XUnit);
 	}
@@ -97,12 +95,23 @@ void APlayerShipBase::InitFire()
 
 void APlayerShipBase::SwapEngine()
 {
-	EngineType = !EngineType;
+	switch (Mode)
+	{
+	case 0:
+		Mode = 2;
+		break;
+	case 2:
+		Mode = 0;
+		break;
+	default:
+		break;
+	}
 	warp_vec = Root->GetComponentRotation().Vector();
-	if (!EngineType)
+	if (Mode == 0)
 	{
 		Root->SetPhysicsLinearVelocity(warp_vec);
-		//Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
 	}
 }
 
@@ -154,12 +163,12 @@ void APlayerShipBase::HideLoot()
 
 void APlayerShipBase::Attachedcpp()
 {
-	Inplace = 1;
+	Mode = 1;
 }
 
 void APlayerShipBase::Detachedcpp()
 {
-	Inplace = 0;
+	Mode = 0;
 }
 
 //server
@@ -257,12 +266,6 @@ void APlayerShipBase::Tick(float DeltaTime)
 		Destruction();
 	}
 
-	if (EngineType)
-	{
-		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
-		Root->SetWorldRotation(warp_vec.Rotation());
-	}
-
 	if (Widget)
 	{
 		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
@@ -272,9 +275,19 @@ void APlayerShipBase::Tick(float DeltaTime)
 		}
 	}
 
-	if (Inplace == 1)
+	switch (Mode)
 	{
+	case 1:
 		Root->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	case 2:
+		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	default:
+		break;
 	}
 }
 
@@ -284,7 +297,7 @@ void APlayerShipBase::BeginPlay()
 	durability = 100;
 	AmmoLeft = 5;
 	FuelLeft = 5;
-	Inplace = 0;
+	Mode = 0;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
