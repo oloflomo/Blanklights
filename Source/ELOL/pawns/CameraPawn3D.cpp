@@ -42,14 +42,7 @@ void ACameraPawn3D::camlong(float movementdelta)
 	}
 	case 1:
 	{
-		FRotator Rotation = Camera->GetRelativeRotation();
-		double pitch = Rotation.Pitch;
-		if (pitch > -70 && pitch < 70)
-		{
-			Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
-			FVector Location = Camera->GetRelativeRotation().Vector();
-			Camera->SetRelativeLocation(Location * -CameraRadius);
-		}
+		Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
 		break;
 	}
 	case 2:
@@ -83,8 +76,6 @@ void ACameraPawn3D::camlat(float movementdelta)
 	case 1:
 	{
 		Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
-		FVector Location = Camera->GetRelativeRotation().Vector();
-		Camera->SetRelativeLocation(Location * -CameraRadius);
 		break;
 	}
 	case 2:
@@ -112,9 +103,8 @@ void ACameraPawn3D::CameraRadiusSwap(float movementdelta)
 	}
 	case 1:
 	{
-		CameraRadius += movementdelta * 100;
-		CameraRadius = std::max(double(CameraRadius), double(50));
-		CameraRadius = std::min(double(CameraRadius), double(1000));
+		FVector Delta = Camera->GetComponentRotation().Vector();
+		Camera->SetWorldLocation(Camera->GetComponentLocation() - Delta * 100 * movementdelta);
 		break;
 	}
 	case 2:
