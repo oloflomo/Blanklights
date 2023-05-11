@@ -281,6 +281,7 @@ void APlayerShipBase::Destruction()
 	{
 		GetWorld()->SpawnActor<AActor>(BoomType, GetActorLocation(), GetActorRotation());
 	}
+	Destruction_BP();
 	GetWorld()->DestroyActor(this);
 }
 
