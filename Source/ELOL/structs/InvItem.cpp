@@ -5,13 +5,13 @@
 
 UInvItem::UInvItem()
 {
-	type = "";
-	value = 0;
+	Weight = 1.f;
+	ItemDisplayName = FText::FromString("Item");
+	UseActionText = FText::FromString("Use");
 }
 
-void UInvItem::Init(FString T, double V)
+
+void UInvItem::Use(class APlayerShipBase* PlayerShip)
 {
-	type = T;
-	value = V;
-}
 
+}

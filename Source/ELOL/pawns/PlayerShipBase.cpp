@@ -2,6 +2,7 @@
 
 
 #include "PlayerShipBase.h"
+#include "Components/Button.h"
 
 APlayerShipBase::APlayerShipBase()
 {
@@ -20,6 +21,7 @@ APlayerShipBase::APlayerShipBase()
 	Root->SetSimulatePhysics(true);
 	Root->SetEnableGravity(0);
 
+
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh2->SetupAttachment(Root);
 	Mesh2->SetStaticMesh(Asset2);
@@ -34,6 +36,14 @@ APlayerShipBase::APlayerShipBase()
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetSimulatePhysics(false);
 
+	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+
+	/*Way_comp = CreateDefaultSubobject<UWaypointComponent>(TEXT("Wid_comp"));
+
+	Way_comp->SetupAttachment(Root);
+	Way_comp->SetRelativeLocation(FVector(0, 0, 0));
+	Way_comp->SetWorldRotation(FRotator(0, 0, 0));*/
+
 	RootComponent = Root;
 }
 
@@ -41,91 +51,173 @@ APlayerShipBase::APlayerShipBase()
 
 void APlayerShipBase::thrusting(float timedelta)
 {
-	FVector XUnit = Root->GetRelativeRotation().Vector();
-	Root->AddForce(100000 * timedelta * XUnit);
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector XUnit = Root->GetRelativeRotation().Vector();
+		Root->AddForce(1000000 * timedelta * XUnit);
+		break;
+	}
+	default:
+		break;
+	}
 	//Controller.thrusting(1);
 }
 
 void APlayerShipBase::yawing(float timedelta)
 {
-	FVector YUnit = Root->GetRightVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(1000000, 0, 0));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector YUnit = Root->GetRightVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(10000000, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::pitching(float timedelta)
 {
-	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(1000000, 0, 0));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector ZUnit = Root->GetUpVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 0, 1), FVector(10000000, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::rolling(float timedelta)
 {
-	FVector ZUnit = Root->GetUpVector();
-	Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 1000000));
+	switch (Mode)
+	{
+	case 0:
+	{
+		FVector ZUnit = Root->GetUpVector();
+		Root->AddForceAtLocationLocal(timedelta * FVector(0, 1, 0), FVector(0, 0, 10000000));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::InitFire()
 {
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, -50, 0), GetActorRotation());
-	GetWorld()->SpawnActor<AActor>(BulletType, GetActorLocation() + FVector(500, 50, 0), GetActorRotation());
+	switch (Mode)
+	{
+	case 0:
+	{
+		if (BulletType && AmmoLeft)
+		{
+			FVector FUnit = Root->GetForwardVector();
+			FVector TUnit = Root->GetRightVector();
+			FTransform SpawnTransform1 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit + 40 * TUnit, FVector(1, 1, 1));
+			FTransform SpawnTransform2 = FTransform(GetActorRotation(), GetActorLocation() + 300 * FUnit - 40 * TUnit, FVector(1, 1, 1));
+			FActorSpawnParameters SpawnParameters;
+			SpawnParameters.Owner = this;
+			GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform1, SpawnParameters);
+			GetWorld()->SpawnActor<AActor>(BulletType, SpawnTransform2, SpawnParameters);
+			AmmoLeft--;
+		}
+		break;
+	}
+	default:
+		break;
+	}
 }
 
-void APlayerShipBase::ShowInv()
+void APlayerShipBase::SwapEngine()
+{
+	switch (Mode)
+	{
+	case 0:
+	{
+		Mode = 2;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
+		break;
+	}
+	case 2:
+	{
+		Mode = 0;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetPhysicsLinearVelocity(warp_vec);
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+UInvItem* APlayerShipBase::RollItem()
+{
+	UInvItem* Item = NewObject<UInvItem>(this, ItemClass1);
+	return Item;
+}
+
+void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
 	if (PC)
 	{
-		PC->bShowMouseCursor = true;
 		PC->bEnableClickEvents = true;
 		PC->bEnableMouseOverEvents = true;
 	}
 
-	InvWidget->AddToViewport();
-}
+	Inventory->RollItem();
 
-void APlayerShipBase::HideInv()
-{
-	APlayerController* PC = Cast<APlayerController>(GetController());
+	ShowForeignInv(ForeignInventory);
+	ShowLootBP();
 
-	if (PC)
-	{
-		PC->bShowMouseCursor = false;
-	}
+	//if (Widget)
+	//{
+	//	UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+	//	if (Button)
+	//	{
+	//		Button->SetVisibility(ESlateVisibility::Visible);
+	//	}
+	//}
 
-	InvWidget->RemoveFromViewport();
-}
-
-void APlayerShipBase::ShowLoot()
-{
-	APlayerController* PC = Cast<APlayerController>(GetController());
-
-	if (PC)
-	{
-		PC->bShowMouseCursor = true;
-		PC->bEnableClickEvents = true;
-		PC->bEnableMouseOverEvents = true;
-	}
-
-	UELOLGameInstance* GameInst = Cast<UELOLGameInstance>(GetGameInstance());
-
-	GameInst->RollItem();
-	GameInst->RollItem();
-	GameInst->RollItem();
-
-	LootWidget->AddToViewport();
+	FuelLeft += 10;
 }
 
 void APlayerShipBase::HideLoot()
 {
-	APlayerController* PC = Cast<APlayerController>(GetController());
+	//if (Widget)
+	//{
+	//	UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
+	//	if (Button)
+	//	{
+	//		Button->SetVisibility(ESlateVisibility::Hidden);
+	//	}
+	//}
+	HideLootBP();
+}
 
-	if (PC)
-	{
-		PC->bShowMouseCursor = false;
-	}
+void APlayerShipBase::Attachedcpp()
+{
+	Mode = 1;
+	Root->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+	Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+}
 
-	LootWidget->RemoveFromViewport();
+void APlayerShipBase::Detachedcpp()
+{
+	Mode = 0;
 }
 
 //server
@@ -181,13 +273,14 @@ bool APlayerShipBase::Serverrolling_Validate(float timedelta)
 void APlayerShipBase::Collision(double dmg = 1)
 {
 	durability -= dmg;
-	UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_20")));
-	ProgressBar->SetPercent(durability / double(101));
 }
 
 void APlayerShipBase::Destruction()
 {
-	GetWorld()->SpawnActor<AActor>(BoomType, GetActorLocation(), GetActorRotation());
+	if (BoomType)
+	{
+		GetWorld()->SpawnActor<AActor>(BoomType, GetActorLocation(), GetActorRotation());
+	}
 	GetWorld()->DestroyActor(this);
 }
 
@@ -203,6 +296,15 @@ void APlayerShipBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	}
 }
 
+void APlayerShipBase::UseItem(class UInvItem* Item)
+{
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this);
+	}
+}
+
 //overrides
 void APlayerShipBase::Tick(float DeltaTime)
 {
@@ -212,23 +314,49 @@ void APlayerShipBase::Tick(float DeltaTime)
 	{
 		Destruction();
 	}
+
+	if (Widget)
+	{
+		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
+		if (ProgressBar)
+		{
+			ProgressBar->SetPercent(durability / double(100));
+		}
+	}
+
+	switch (Mode)
+	{
+	case 1:
+	{
+		break;
+	}
+	case 2:
+	{
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void APlayerShipBase::BeginPlay()
 {
 	Super::BeginPlay();
 	durability = 100;
+	AmmoLeft = 5;
+	FuelLeft = 5;
+	Mode = 0;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 
-	Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+	if (WidgetClass)
+	{
+		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+		Widget->AddToViewport();
+	}
 
-	InvWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), InvWidgetClass);
-
-	LootWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), LootWidgetClass);
-
-	Widget->AddToViewport();
+	Inventory->ItemClass1 = ItemClass1;
 }
 
 
@@ -241,10 +369,9 @@ void APlayerShipBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	//register inputs
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APlayerShipBase::ServerInitFire);
-	PlayerInputComponent->BindAction("Inv", IE_Pressed, this, &APlayerShipBase::ShowInv);
-	PlayerInputComponent->BindAction("Inv", IE_Released, this, &APlayerShipBase::HideInv);
 	PlayerInputComponent->BindAxis("thrust", this, &APlayerShipBase::Serverthrusting);
 	PlayerInputComponent->BindAxis("pitch", this, &APlayerShipBase::Serverpitching);
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShipBase::Serveryawing);
 	PlayerInputComponent->BindAxis("roll", this, &APlayerShipBase::Serverrolling);
+	PlayerInputComponent->BindAction("EngineToggle", IE_Pressed, this, &APlayerShipBase::SwapEngine);
 }

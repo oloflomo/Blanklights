@@ -19,9 +19,6 @@ public:
 	// Sets default values for this pawn's properties
 	UELOLGameInstance();
 
-	//events
-	void RollItem();
-
 	//variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		double LaserCnt;

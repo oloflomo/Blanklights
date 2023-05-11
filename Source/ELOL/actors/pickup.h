@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "ELOL/Pawns/PlayerShipBase.h"
 #include "pickup.generated.h"
@@ -18,10 +19,17 @@ public:
 	// Sets default values for this actor's properties
 	Apickup();
 
-	void Pick();
+	UFUNCTION()
+		void Pick(AActor* other);
 
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+		void NoPick(AActor* other);
+
+	UFUNCTION()
+		void OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 protected:
 	// Called when the game starts or when spawned
@@ -31,9 +39,18 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere)
+		UCapsuleComponent* Capsule;
+
 	//properties
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<APlayerShipBase> PlayerShipClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UInventoryComponent* Inventory;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UInvItem> ItemClass1;
 
 public:	
 	// Called every frame

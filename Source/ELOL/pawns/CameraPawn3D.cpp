@@ -2,6 +2,7 @@
 
 
 #include "CameraPawn3D.h"
+#include "GenericPlatform/GenericPlatformMath.h"
 
 // Sets default values
 ACameraPawn3D::ACameraPawn3D()
@@ -20,37 +21,110 @@ ACameraPawn3D::ACameraPawn3D()
 	Camera->SetRelativeLocation(FVector(-200, 0, 0));
 	Camera->SetRelativeRotation(FRotator(0, 0, 0));
 
-	CameraRadius = 200;
-
 	RootComponent = Root;
 }
 
 void ACameraPawn3D::camlong(float movementdelta)
 {
-	Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
-	FVector Location = Camera->GetRelativeRotation().Vector();
-	Camera->SetRelativeLocation(Location * -CameraRadius);
+	switch (Mode)
+	{
+	case 0:
+	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double pitch = Rotation.Pitch;
+		if (pitch > -70 && pitch < 70)
+		{
+			Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
+			FVector Location = Camera->GetRelativeRotation().Vector();
+			Camera->SetRelativeLocation(Location * -CameraRadius);
+		}
+		break;
+	}
+	case 1:
+	{
+		Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
+		break;
+	}
+	case 2:
+	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double pitch = Rotation.Pitch;
+		if (pitch > -70 && pitch < 70)
+		{
+			Camera->AddLocalRotation(FRotator(movementdelta, 0, 0));
+			FVector Location = Camera->GetRelativeRotation().Vector();
+			Camera->SetRelativeLocation(Location * -CameraRadius);
+		}
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void ACameraPawn3D::camlat(float movementdelta)
 {
-	Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
-	FVector Location = Camera->GetRelativeRotation().Vector();
-	Camera->SetRelativeLocation(Location * -CameraRadius);
+	switch (Mode)
+	{
+	case 0:
+	{
+		Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
+		FVector Location = Camera->GetRelativeRotation().Vector();
+		Camera->SetRelativeLocation(Location * -CameraRadius);
+		break;
+	}
+	case 1:
+	{
+		Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
+		break;
+	}
+	case 2:
+	{
+		Camera->AddLocalRotation(FRotator(0, movementdelta, 0));
+		FVector Location = Camera->GetRelativeRotation().Vector();
+		Camera->SetRelativeLocation(Location * -CameraRadius);
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void ACameraPawn3D::CameraRadiusSwap(float movementdelta)
 {
-	CameraRadius += movementdelta * 100;
-	CameraRadius = std::max(double(CameraRadius), double(50));
-	CameraRadius = std::min(double(CameraRadius), double(1000));
+	switch (Mode)
+	{
+	case 0:
+	{
+		CameraRadius += movementdelta * 100;
+		CameraRadius = std::max(double(CameraRadius), double(50));
+		CameraRadius = std::min(double(CameraRadius), double(1000));
+		break;
+	}
+	case 1:
+	{
+		FVector Delta = Camera->GetComponentRotation().Vector();
+		Camera->SetWorldLocation(Camera->GetComponentLocation() - Delta * 100 * movementdelta);
+		break;
+	}
+	case 2:
+	{
+		CameraRadius += movementdelta * 100;
+		CameraRadius = std::max(double(CameraRadius), double(50));
+		CameraRadius = std::min(double(CameraRadius), double(1000));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 // Called when the game starts or when spawned
 void ACameraPawn3D::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	Mode = 0;
+	CameraRadius = 200;
 }
 
 // Called every frame
@@ -58,6 +132,32 @@ void ACameraPawn3D::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	switch (Mode)
+	{
+	case 0:
+	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
+		break;
+	}
+	case 1:
+	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
+		break;
+	}
+	case 2:
+	{
+		FRotator Rotation = Camera->GetRelativeRotation();
+		double roll = Rotation.Roll;
+		Camera->AddLocalRotation(FRotator(0, 0, -roll));
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 // Called to bind functionality to input

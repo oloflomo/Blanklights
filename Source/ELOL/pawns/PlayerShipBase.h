@@ -7,6 +7,10 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/ProgressBar.h"
 #include "ELOL/ELOLGameInstance.h"
+#include "ELOL/components/InventoryComponent.h"
+#include "ELOL/components/WaypointComponent.h"
+#include "ELOL/structs/InvItem.h"
+#include "ELOL/structs/AmmoInvItem.h"
 #include "PlayerShipBase.generated.h"
 
 /**
@@ -22,15 +26,24 @@ public:
 	APlayerShipBase(); // ?E?
 
 	// Player Actions
-	void thrusting(float movementdelta);
-	void yawing(float movementdelta);
-	void pitching(float movementdelta);
-	void rolling(float movementdelta);
-	void InitFire();
-	void ShowInv();
-	void HideInv();
-	void ShowLoot();
-	void HideLoot();
+	UFUNCTION()
+		void thrusting(float movementdelta);
+	UFUNCTION()
+		void yawing(float movementdelta);
+	UFUNCTION()
+		void pitching(float movementdelta);
+	UFUNCTION()
+		void rolling(float movementdelta);
+	UFUNCTION(BlueprintCallable)
+		void InitFire();
+	UFUNCTION()
+		void ShowLoot(UInventoryComponent* ForeignInventory);
+	UFUNCTION()
+		void HideLoot();
+	UFUNCTION()
+		void SwapEngine();
+	UFUNCTION()
+		UInvItem* RollItem();
 
 	//server
 	UFUNCTION(server, unreliable, WithValidation)
@@ -45,10 +58,30 @@ public:
 		void Serverrolling(float movementdelta);
 
 	//events
+	
+	UFUNCTION()
+		void Collision(double dmg);
 
-	void Collision(double dmg);
+	UFUNCTION()
+		void Destruction();
 
-	void Destruction();
+	UFUNCTION(BlueprintCallable, Category =  "Items")
+		void UseItem(class UInvItem* InvItem);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowForeignInv(UInventoryComponent* ForeignInventory);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void ShowLootBP();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void HideLootBP();
+
+	UFUNCTION(BlueprintCallable)
+		void Attachedcpp();
+
+	UFUNCTION(BlueprintCallable)
+		void Detachedcpp();
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
@@ -59,20 +92,21 @@ protected:
 	virtual void BeginPlay() override;
 
 	//components
+
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh2;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UInventoryComponent* Inventory;
+
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	//	UWaypointComponent* Way_comp;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UUserWidget* Widget;
-
-	UPROPERTY(EditAnywhere)
-		UUserWidget* InvWidget;
-
-	UPROPERTY(EditAnywhere)
-		UUserWidget* LootWidget;
 
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -85,14 +119,25 @@ protected:
 		TSubclassOf<class UUserWidget> WidgetClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UUserWidget> InvWidgetClass;
+		TSubclassOf<class UInvItem> ItemClass1;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UUserWidget> LootWidgetClass;
+		TSubclassOf<class UInvItem> ItemClass2;
+
+public:
 
 	//variables
 	UPROPERTY(EditAnywhere)
 		double durability;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int AmmoLeft;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int FuelLeft;
+
+	UPROPERTY()
+		FVector warp_vec = FVector(1, 0, 0);
 
 public:
 

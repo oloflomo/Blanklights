@@ -6,16 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "LASER.generated.h"
+#include "LaserBase.generated.h"
 
 UCLASS()
-class ELOL_API ALASER : public AActor
+class ELOL_API ALaserBase : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ALASER();
+	ALaserBase();
 
 	void Collision();
 
@@ -23,25 +23,16 @@ public:
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 protected:
-	// Called when the game starts or when spawneds
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-
 
 	//components
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
 
-	UPROPERTY(EditAnywhere)
-		UCapsuleComponent* Capsule;
-
-
-
 	//properties
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> BoomType;
-
-
 
 	//variables
 	UPROPERTY(EditAnywhere)

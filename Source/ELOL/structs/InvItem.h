@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class ELOL_API UInvItem : public UObject
 {
 	GENERATED_BODY()
@@ -17,10 +17,35 @@ class ELOL_API UInvItem : public UObject
 public:
 	UInvItem();
 
-	void Init(FString type, double value);
+	virtual class UWorld* GetWorld() const { return World; };
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString type;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		double value;
+	UPROPERTY(Transient)
+		class UWorld* World;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FText UseActionText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		class UStaticMesh* PickupMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		class UTexture2D* Thumbnail;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+		FText ItemDisplayName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+		FText ItemDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
+		float Weight;
+
+	UPROPERTY(BlueprintReadWrite)
+		class UInventoryComponent* OwningInventory;
+
+	virtual void Use(class APlayerShipBase* PlayerShip);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void OnUse(class APlayerShipBase* PlayerShip);
+
 };

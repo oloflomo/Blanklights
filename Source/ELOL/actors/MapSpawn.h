@@ -28,6 +28,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> Asteroid;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> Pick;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> WAYPNT;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> FogSpawner;
+
 	//variables
 
 public:	

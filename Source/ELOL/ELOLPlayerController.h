@@ -14,4 +14,21 @@ class ELOL_API AELOLPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
+	// ~Overrides: APlayerController
+	virtual void SetupInputComponent() override;
+
+	AELOLPlayerController();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UUserWidget* ExitMenuWidget;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TSubclassOf<class UUserWidget> ExitMenuWidgetClass;
+
+	UFUNCTION()
+		void ShowMenu();
+
+	UFUNCTION()
+		void HideMenu();
 };
