@@ -20,10 +20,10 @@ void UInventoryComponent::AddItem(UInvItem* Item)
 	Item->World = GetWorld();
 	Items.Add(Item);
 
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, (Item->ItemDisplayName).ToString());
-	}
+	//if (GEngine)
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, (Item->ItemDisplayName).ToString());
+	//}
 
 	OnInventoryUpdated.Broadcast();
 }
