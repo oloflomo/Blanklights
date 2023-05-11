@@ -83,6 +83,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void Detachedcpp();
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void Destruction_BP();
+
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
