@@ -10,28 +10,28 @@ APlayerShipBase::APlayerShipBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Create components
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset1(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134.sp2-1_Object134'"));
-	UStaticMesh* Asset1 = MeshAsset1.Object;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset2(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134_001.sp2-1_Object134_001'"));
-	UStaticMesh* Asset2 = MeshAsset2.Object;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset3(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134_002.sp2-1_Object134_002'"));
-	UStaticMesh* Asset3 = MeshAsset3.Object;
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset1(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134.sp2-1_Object134'"));
+	//UStaticMesh* Asset1 = MeshAsset1.Object;
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset2(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134_001.sp2-1_Object134_001'"));
+	//UStaticMesh* Asset2 = MeshAsset2.Object;
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset3(TEXT("/Script/Engine.StaticMesh'/Game/grafika/spaceship/spac3/sp2-1_Object134_002.sp2-1_Object134_002'"));
+	//UStaticMesh* Asset3 = MeshAsset3.Object;
 
-	Root->SetStaticMesh(Asset1);
+	//Root->SetStaticMesh(Asset1);
 	Root->SetSimulatePhysics(true);
 	Root->SetEnableGravity(0);
 
 
 	Mesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh2"));
 	Mesh2->SetupAttachment(Root);
-	Mesh2->SetStaticMesh(Asset2);
+	//Mesh2->SetStaticMesh(Asset2);
 	Mesh2->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh2->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh2->SetSimulatePhysics(false);
 
 	Mesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh3"));
 	Mesh3->SetupAttachment(Root);
-	Mesh3->SetStaticMesh(Asset3);
+	//Mesh3->SetStaticMesh(Asset3);
 	Mesh3->SetRelativeLocation(FVector(0, 0, 0));
 	Mesh3->SetWorldRotation(FRotator(0, 0, 0));
 	Mesh3->SetSimulatePhysics(false);
