@@ -120,7 +120,8 @@ void AMobShip::Chase()
 	double roll = RotationDirection.Roll;// / abs(RotationDirection.Roll);
 	double yaw = RotationDirection.Yaw;// / abs(RotationDirection.Yaw);
 	Mesh->AddForce(1000000 * GetActorRotation().Vector());
-	SetActorRotation(GetActorRotation() - FRotator(pitch, roll, yaw));
+	//SetActorRotation(FRotator(pitch, roll, yaw) - GetActorRotation());
+	SetActorRotation(Direction.Rotation());
 	//Mesh->AddForceAtLocationLocal(FVector(0, 1, 0), FVector(10000000 * RotationDirection.Yaw, 0, 0)); //yaw
 	//Mesh->AddForceAtLocationLocal(FVector(0, 0, 1), FVector(10000000 * RotationDirection.Pitch, 0, 0)); //pitch
 	//Mesh->AddForceAtLocationLocal(FVector(0, 1, 0), FVector(0, 0, 10000000 * RotationDirection.Roll)); //roll
