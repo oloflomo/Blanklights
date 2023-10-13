@@ -344,7 +344,7 @@ void APlayerShipBase::BeginPlay()
 {
 	Super::BeginPlay();
 	durability = 100;
-	AmmoLeft = 5;
+	AmmoLeft = 50;
 	FuelLeft = 5;
 	Mode = 0;
 	Root->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);

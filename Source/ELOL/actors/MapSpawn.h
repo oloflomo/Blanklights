@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> FogSpawner;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> MobShip;
+
 	//variables
 
 public:	

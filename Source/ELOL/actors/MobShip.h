@@ -20,6 +20,28 @@ public:
 	// Sets default values for this actor's properties
 	AMobShip();
 
+	//Decisions
+
+	UFUNCTION(BlueprintCallable)
+		void InitFire();
+
+	UFUNCTION(BlueprintCallable)
+		void Chase();
+
+	//events
+
+	UFUNCTION()
+		void Collision(double dmg);
+
+	UFUNCTION()
+		void Destruction();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void Destruction_BP();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,6 +54,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh3;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UInventoryComponent* Inventory;
 
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -51,6 +76,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int FuelLeft;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Cooldown;
 
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);
