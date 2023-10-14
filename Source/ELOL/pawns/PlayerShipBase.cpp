@@ -145,7 +145,7 @@ void APlayerShipBase::SwapEngine()
 		warp_vec = Root->GetComponentRotation().Vector();
 		Root->SetWorldRotation(warp_vec.Rotation());
 		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
-		Root->SetPhysicsLinearVelocity(100000 * warp_vec);
+		Root->SetPhysicsLinearVelocity(10000000000 * warp_vec);
 		break;
 	}
 	case 2:

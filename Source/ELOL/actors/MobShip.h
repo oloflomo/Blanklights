@@ -80,6 +80,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int Cooldown;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Mode;
+
 	UPROPERTY()
 		FVector warp_vec = FVector(1, 0, 0);
 

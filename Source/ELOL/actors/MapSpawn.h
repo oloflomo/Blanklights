@@ -41,6 +41,8 @@ protected:
 		TSubclassOf<AActor> MobShip;
 
 	//variables
+	UPROPERTY(EditAnywhere)
+		double Mapsize;
 
 public:	
 	// Called every frame

@@ -40,6 +40,7 @@ void AMobShip::BeginPlay()
 	durability = 5;
 	AmmoLeft = 50;
 	FuelLeft = 5;
+	Mode = 2; //standby
 	Mesh->OnComponentHit.AddDynamic(this, &AMobShip::OnHit);
 	Mesh2->OnComponentHit.AddDynamic(this, &AMobShip::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &AMobShip::OnHit);
@@ -51,16 +52,30 @@ void AMobShip::BeginPlay()
 void AMobShip::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (Cooldown == 0)
+
+	switch (Mode)
 	{
-		InitFire();
-		Cooldown = 200;
-	}
-	else
+	case 1:
 	{
-		Cooldown -= 1;
+		if (Cooldown == 0)
+		{
+			InitFire();
+			Cooldown = 200;
+		}
+		else
+		{
+			Cooldown -= 1;
+		}
+		Chase();
+		break;
 	}
-	Chase();
+	case 2:
+	{
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void AMobShip::Collision(double dmg = 1)
