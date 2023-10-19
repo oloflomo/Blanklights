@@ -47,6 +47,32 @@ void AMapSpawn::BeginPlay()
 			}
 		}
 	}
+	for (int k = 0; k < 4; k++)
+	{
+		double center_x_component = FMath::RandRange(double(0), double(2 * Mapsize));
+		double center_y_component = FMath::RandRange(double(-Mapsize), double(Mapsize));
+		double center_z_component = FMath::RandRange(double(-Mapsize / 5), double(Mapsize / 5));
+		if (true) //collision check placeholder
+		{
+			for (int i = 0; i < 400; i++)
+			{
+				double x_component = center_x_component + FMath::RandRange(int(-80000), int(80000));
+				double y_component = center_y_component + FMath::RandRange(int(-80000), int(80000));
+				double z_component = center_z_component + FMath::RandRange(int(-80000), int(80000));
+				int r = FMath::RandRange(int(1), int(100));
+				if (i <= 15)
+					GetWorld()->SpawnActor<AActor>(WAYPNT, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+				else if (i < 20)
+					GetWorld()->SpawnActor<AActor>(FogSpawner, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+				else if (r < 80)
+					GetWorld()->SpawnActor<AActor>(Asteroid, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+				else if (r < 90)
+					GetWorld()->SpawnActor<AActor>(MobShip, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+				else
+					GetWorld()->SpawnActor<AActor>(Pick, FVector(x_component, y_component, z_component), RootComponent->GetComponentRotation());
+			}
+		}
+	}
 	for (int i = 0; i < 50; i++)
 	{
 		int x_component = FMath::RandRange(int(-40000), int(40000));
