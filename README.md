@@ -22,3 +22,8 @@ to launch
 -check vpn's
 -check network adapters
 -check virtual box
+
+
+
+GAME UNIT CONVERSION
+1 unreal unit = 300km
