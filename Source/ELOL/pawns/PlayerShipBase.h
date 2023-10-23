@@ -36,12 +36,14 @@ public:
 		void rolling(float movementdelta);
 	UFUNCTION(BlueprintCallable)
 		void InitFire();
-	UFUNCTION()
-		void ShowLoot(UInventoryComponent* ForeignInventory);
-	UFUNCTION()
-		void HideLoot();
+//	UFUNCTION()
+//		void ShowLoot(UInventoryComponent* ForeignInventory);
+//	UFUNCTION()
+//		void HideLoot();
 	UFUNCTION()
 		void SwapEngine();
+	UFUNCTION()
+		void ReverseSwapEngine();
 	UFUNCTION()
 		UInvItem* RollItem();
 
@@ -108,18 +110,12 @@ protected:
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UWaypointComponent* Way_comp;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		UUserWidget* Widget;
-
 	//properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BulletType;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<AActor> BoomType;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TSubclassOf<class UUserWidget> WidgetClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TSubclassOf<class UInvItem> ItemClass1;
@@ -130,7 +126,7 @@ protected:
 public:
 
 	//variables
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		double durability;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

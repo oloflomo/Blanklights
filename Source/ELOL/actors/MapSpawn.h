@@ -26,7 +26,10 @@ protected:
 
 	//properties
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> Asteroid;
+		TArray<TSubclassOf<AActor>> DebrisActors;
+
+	UPROPERTY(EditAnywhere)
+		TArray<TSubclassOf<AActor>> PlanetActors;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> Pick;

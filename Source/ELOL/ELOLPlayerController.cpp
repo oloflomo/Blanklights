@@ -35,6 +35,6 @@ void AELOLPlayerController::HideMenu()
 {
     if (ExitMenuWidget)
     {
-        ExitMenuWidget->RemoveFromViewport();
+        ExitMenuWidget->RemoveFromParent();
     }
 }

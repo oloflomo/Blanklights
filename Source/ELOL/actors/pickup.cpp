@@ -32,8 +32,8 @@ void Apickup::Pick(AActor* other)
 	//for (AActor* i : FoundActors) {
 	if (other->IsA(APlayerShipBase::StaticClass()))
 	{
-		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
-		Ship->ShowLoot(Inventory);
+//		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);		//get player controller	-> show loot (in player controler through hud)
+//		Ship->ShowLoot(Inventory);
 	}
 }
 
@@ -45,8 +45,8 @@ void Apickup::NoPick(AActor* other)
 	//for (AActor* i : FoundActors) {
 	if (other->IsA(APlayerShipBase::StaticClass()))
 	{
-		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			
-		Ship->HideLoot();
+//		APlayerShipBase* Ship = Cast<APlayerShipBase>(other);			//get player controller	-> show loot (in player controler through hud)
+//		Ship->HideLoot();
 	}
 }
 

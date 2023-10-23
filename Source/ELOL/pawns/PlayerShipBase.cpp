@@ -56,7 +56,7 @@ void APlayerShipBase::thrusting(float timedelta)
 	case 0:
 	{
 		FVector XUnit = Root->GetRelativeRotation().Vector();
-		Root->AddForce(1000000 * timedelta * XUnit);
+		Root->AddForce(100000000 * timedelta * XUnit);
 		break;
 	}
 	default:
@@ -150,11 +150,74 @@ void APlayerShipBase::SwapEngine()
 	}
 	case 2:
 	{
+		Mode = 3;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(1000000000 * warp_vec);
+		break;
+	}
+	case 3:
+	{
+		Mode = 4;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(100000000 * warp_vec);
+		break;
+	}
+	case 4:
+	{
 		Mode = 0;
 		warp_vec = Root->GetComponentRotation().Vector();
 		Root->SetPhysicsLinearVelocity(warp_vec);
 		Root->SetWorldRotation(warp_vec.Rotation());
 		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void APlayerShipBase::ReverseSwapEngine()
+{
+	switch (Mode)
+	{
+	case 0:
+	{
+		Mode = 4;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(100000000 * warp_vec);
+		break;
+	}
+	case 2:
+	{
+		Mode = 0;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetPhysicsLinearVelocity(warp_vec);
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		break;
+	}
+	case 3:
+	{
+		Mode = 2;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(10000000000 * warp_vec);
+		break;
+	}
+	case 4:
+	{
+		Mode = 3;
+		warp_vec = Root->GetComponentRotation().Vector();
+		Root->SetWorldRotation(warp_vec.Rotation());
+		Root->SetPhysicsAngularVelocityInDegrees(FVector(0, 0, 0));
+		Root->SetPhysicsLinearVelocity(1000000000 * warp_vec);
 		break;
 	}
 	default:
@@ -168,7 +231,7 @@ UInvItem* APlayerShipBase::RollItem()
 	return Item;
 }
 
-void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
+/*void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 
@@ -193,10 +256,10 @@ void APlayerShipBase::ShowLoot(UInventoryComponent* ForeignInventory)
 	//}
 
 	FuelLeft += 10;
-}
+}*/
 
-void APlayerShipBase::HideLoot()
-{
+//void APlayerShipBase::HideLoot()
+//{
 	//if (Widget)
 	//{
 	//	UButton* Button = dynamic_cast<UButton*>(Widget->GetWidgetFromName(FName("LootButton")));
@@ -205,8 +268,8 @@ void APlayerShipBase::HideLoot()
 	//		Button->SetVisibility(ESlateVisibility::Hidden);
 	//	}
 	//}
-	HideLootBP();
-}
+//	HideLootBP();
+//}
 
 void APlayerShipBase::Attachedcpp()
 {
@@ -316,15 +379,6 @@ void APlayerShipBase::Tick(float DeltaTime)
 		Destruction();
 	}
 
-	if (Widget)
-	{
-		UProgressBar* ProgressBar = dynamic_cast<UProgressBar*>(Widget->GetWidgetFromName(FName("ProgressBar_60")));
-		if (ProgressBar)
-		{
-			ProgressBar->SetPercent(durability / double(100));
-		}
-	}
-
 	switch (Mode)
 	{
 	case 1:
@@ -351,11 +405,11 @@ void APlayerShipBase::BeginPlay()
 	Mesh2->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 	Mesh3->OnComponentHit.AddDynamic(this, &APlayerShipBase::OnHit);
 
-	if (WidgetClass)
-	{
-		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
-		Widget->AddToViewport();
-	}
+//	if (WidgetClass)
+//	{
+//		Widget = CreateWidget<UUserWidget>(this->GetGameInstance(), WidgetClass);
+//		Widget->AddToViewport();
+//	}
 
 	Inventory->ItemClass1 = ItemClass1;
 }
@@ -375,4 +429,5 @@ void APlayerShipBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("yaw", this, &APlayerShipBase::Serveryawing);
 	PlayerInputComponent->BindAxis("roll", this, &APlayerShipBase::Serverrolling);
 	PlayerInputComponent->BindAction("EngineToggle", IE_Pressed, this, &APlayerShipBase::SwapEngine);
+	PlayerInputComponent->BindAction("EngineReverseToggle", IE_Pressed, this, &APlayerShipBase::ReverseSwapEngine);
 }
